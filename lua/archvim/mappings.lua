@@ -17,6 +17,14 @@ vim.keymap.set("i", "<C-Insert>", '<Esc>"+yya', { silent = true })
 vim.keymap.set({ "n", "v" }, "<S-Insert>", '"+p', { silent = true })
 vim.keymap.set("i", "<S-Insert>", "<C-r>+", { silent = true })
 
+-- 撤销快捷键
+vim.keymap.set(
+	{ "n", "i","v" },
+	"<C-z>",
+    "<Esc>:u<CR>",
+	{ silent = true,}
+)
+
 vim.keymap.set(
 	{ "v", "n" },
 	"gh",
@@ -34,18 +42,10 @@ vim.keymap.set({ "v", "n", "i" }, "<F6>", "<cmd>cclose | Trouble qflist toggle<C
 
 -- 格式化代码
 vim.keymap.set({ "v" }, "g=", [[<Cmd>Neoformat<CR>]])
-vim.keymap.set({ "n" }, "g=", function()
-	vim.lsp.buf.format()
-end)
+
 vim.keymap.set({ "v", "n", "i" }, "<F16>", function()
 	vim.lsp.buf.format()
 end)
 
--- 格式化代码
-vim.keymap.set({ "v" }, "g=", [[<Cmd>Neoformat<CR>]])
-vim.keymap.set({ "n" }, "g=", function()
-	vim.lsp.buf.format()
-end)
-vim.keymap.set({ "v", "n", "i" }, "<F16>", function()
-	vim.lsp.buf.format()
-end)
+-- 插件快捷键
+-- vim.keymap.set({"v", "n", "i", "t"}, "<F7>", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true })

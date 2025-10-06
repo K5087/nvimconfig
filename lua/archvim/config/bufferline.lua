@@ -3,6 +3,7 @@ return {
     dependencies = {
         "nvim-tree/nvim-web-devicons"
     },
+    event = "BufWinEnter",
     config = function()
         require("bufferline").setup({
             options = {
