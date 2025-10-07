@@ -7,7 +7,6 @@ return {
   hi NormalNC guibg=NONE ctermbg=NONE
   hi VertSplit guibg=NONE
   hi StatusLine guibg=NONE
-  hi TabLineFill guibg=NONE
 ]])
 	end,
 }

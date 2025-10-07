@@ -11,11 +11,14 @@ vim.keymap.set("i", "kj", "<Esc>", { silent = true })
 vim.keymap.set("t", "jk", "<C-\\><C-n>", { silent = true })
 vim.keymap.set("t", "kj", "<C-\\><C-n>", { silent = true })
 
--- 复制粘贴快捷键
+-- 复制粘贴快捷键(该快捷键是否保留?)
 vim.keymap.set({ "n", "v" }, "<C-Insert>", '"+y', { silent = true })
 vim.keymap.set("i", "<C-Insert>", '<Esc>"+yya', { silent = true })
 vim.keymap.set({ "n", "v" }, "<S-Insert>", '"+p', { silent = true })
 vim.keymap.set("i", "<S-Insert>", "<C-r>+", { silent = true })
+
+-- 将"寄存器与+寄存器绑定
+vim.opt.clipboard = "unnamed,unnamedplus"
 
 -- 撤销快捷键
 vim.keymap.set(
