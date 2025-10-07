@@ -51,12 +51,12 @@ return {
 	config = function(_, opts)
 		require("dashboard").setup(opts)
 
-		if vim.api.nvim_buf_get_name(0) == "" then
-			vim.cmd("Dashboard")
-		end
+		-- if vim.api.nvim_buf_get_name(0) == "" then
+		-- 	vim.cmd("Dashboard")
+		-- end
 
 		-- Use the highlight command to replace instead of overriding the original highlight group
 		-- Much more convenient than using vim.api.nvim_set_hl()
-		vim.cmd("highlight DashboardFooter cterm=NONE gui=NONE")
+		-- vim.cmd("highlight DashboardFooter cterm=NONE gui=NONE")
 	end,
 }
