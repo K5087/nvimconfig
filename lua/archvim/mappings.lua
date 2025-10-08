@@ -52,3 +52,10 @@ end)
 
 -- 插件快捷键
 -- vim.keymap.set({"v", "n", "i", "t"}, "<F7>", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true })
+
+-- 查找符号定义
+vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = 'Goto definition' })
+-- 查找符号声明
+vim.keymap.set("n", "gD", function()
+    vim.lsp.buf.declaration()
+end, { desc = 'Goto declaration' })

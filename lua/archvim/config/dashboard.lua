@@ -1,6 +1,6 @@
 return {
 	"nvimdev/dashboard-nvim",
-	event = "VimEnter",
+	event = "UIEnter",
 	opts = {
 		theme = "hyper",
 		config = {
@@ -50,7 +50,9 @@ return {
 	},
 	config = function(_, opts)
 		require("dashboard").setup(opts)
-
+        local shada = vim.fn.stdpath("state") .. "/shada/main.shada"
+        vim.o.shadafile = shada
+        vim.api.nvim_command("rshada! " .. shada)
 		-- if vim.api.nvim_buf_get_name(0) == "" then
 		-- 	vim.cmd("Dashboard")
 		-- end

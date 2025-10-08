@@ -26,17 +26,13 @@ vim.opt.smartcase = true
 -- 将vim设置为24位颜色
 vim.opt.termguicolors = true
 
--- 禁用vim自带的状态栏
--- vim.opt.showmode = false
--- vim.opt.laststatus = 0
-
 -- 在进入命令行后才读取历史信息文件(shada)
 vim.opt.shadafile = "NONE"
-vim.api.nvim_create_autocmd("CmdlineEnter", {
-    once = true,
-    callback = function()
-        local shada = vim.fn.stdpath("state") .. "/shada/main.shada"
-        vim.o.shadafile = shada
-        vim.api.nvim_command("rshada! " .. shada)
-    end,
-})
+-- vim.api.nvim_create_autocmd("CmdlineEnter", {
+--     once = true,
+--     callback = function()
+--         local shada = vim.fn.stdpath("state") .. "/shada/main.shada"
+--         vim.o.shadafile = shada
+--         vim.api.nvim_command("rshada! " .. shada)
+--     end,
+-- })

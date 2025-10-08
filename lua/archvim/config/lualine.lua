@@ -3,7 +3,7 @@ return {
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 	},
-	event = "VeryLazy",
+	event = "UIEnter",
 	opts = {
 		options = {
 			theme = "auto",
@@ -27,8 +27,5 @@ return {
 	},
 	config = function(_, opts)
 		require("lualine").setup(opts)
-		vim.schedule(function()
-			require("lualine").refresh()
-		end)
 	end,
 }
