@@ -57,11 +57,11 @@ return {
     keys = {
         { "g<Tab>", "<cmd>BufferLineTogglePin<CR>", mode = { "n", "v" } },
         { "gb",         "<cmd>BufferLineCyclePrev<CR>", mode = { "n", "v" } },
-        { "gt",         "<cmd>BufferLineCycleNext<CR>", mode = { "n", "v" } },
+        { "gn",         "<cmd>BufferLineCycleNext<CR>", mode = { "n", "v" } },
         { "g<Space>", "<cmd>BufferLinePick<CR>", mode = { "n", "v" } },
         { "g<BS>", "<cmd>bdelete<CR>", mode = { "n", "v" } },
-        { "gB", "<cmd>BufferLineMovePrev<CR>", mode = { "n", "v" } },
-        { "gT", "<cmd>BufferLineMoveNext<CR>", mode = { "n", "v" } },
+        { "gmb", "<cmd>BufferLineMovePrev<CR>", mode = { "n", "v" } },
+        { "gmn", "<cmd>BufferLineMoveNext<CR>", mode = { "n", "v" } },
         { "g<S-Tab>", "<cmd>BufferLineCloseOthers<CR>", mode = { "n", "v" } },
         { "g<C-b>", "<cmd>BufferLineCloseLeft<CR>", mode = { "n", "v" } },
         { "g<C-t>", "<cmd>BufferLineCloseRight<CR>", mode = { "n", "v" } },
@@ -77,6 +77,6 @@ return {
         { "<C-F15>", "<cmd>BufferLineCloseRight<CR>", mode = { "n", "v", "i" } },
     },
 
-    lazy = false,
+    -- lazy = false,
 }
 

@@ -13,11 +13,26 @@ return {
 		end
 
 		CheckInstall("stylua")
+		CheckInstall("clang_format")
+		CheckInstall("jq")
 
 		local null_ls = require("null-ls")
+		local helpers = require("null-ls.helpers")
+		local jq_formatter = {
+			name = "jq",
+			method = null_ls.methods.FORMATTING,
+			filetypes = { "json" },
+			generator = helpers.formatter_factory({
+				command = "jq",
+				args = { "." },
+				to_stdin = true,
+			}),
+		}
 		null_ls.setup({
 			sources = {
 				null_ls.builtins.formatting.stylua,
+				null_ls.builtins.formatting.clang_format,
+				jq_formatter,
 			},
 		})
 	end,

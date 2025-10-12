@@ -59,3 +59,7 @@ vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = 'Goto d
 vim.keymap.set("n", "gD", function()
     vim.lsp.buf.declaration()
 end, { desc = 'Goto declaration' })
+
+-- 查找文件
+vim.keymap.set("n","gfd","<cmd>Telescope fd<CR>",{desc = 'serach file by name'})
+vim.keymap.set("n","gip","<cmd>Telescope live_grep<CR>",{desc = 'search file by content'})

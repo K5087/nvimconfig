@@ -1,0 +1,19 @@
+[
+  {
+    "name": "GCC 15.2.1",
+    "generator": "Ninja",
+    "compilers": {
+      "c": "/usr/bin/gcc",
+      "cxx": "/usr/bin/g++",
+      "Fortran": "usr/bin/gFortran"
+    }
+  },
+  {
+    "name": "Clang 20.1.8",
+    "generator": "Ninja",
+    "compilers": {
+      "c": "/usr/bin/clang",
+      "cxx": "/usr/bin/clang++"
+    }
+  }
+]
