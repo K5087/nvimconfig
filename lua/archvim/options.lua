@@ -1,4 +1,4 @@
-vim.g.mapleader = ','
+vim.g.mapleader = ","
 
 -- 行号
 vim.opt.number = true
