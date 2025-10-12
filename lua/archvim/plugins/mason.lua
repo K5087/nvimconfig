@@ -33,7 +33,9 @@ return {
         local function setup(name, config)
             CheckInstall(name)
             local lsp = require("mason-lspconfig").get_mappings().package_to_lspconfig[name]
-            vim.lsp.config(lsp, config)
+            if lsp then
+                vim.lsp.config(lsp, config)
+            end
         end
 
         local servers = {
