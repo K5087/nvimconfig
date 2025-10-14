@@ -23,6 +23,7 @@ return {
             registry.refresh()
         end
 
+        -- 检查包是否安装
         local function CheckInstall(package)
             local s, p = pcall(registry.get_package, package)
             if s and not p:is_installed() then
@@ -30,6 +31,7 @@ return {
             end
         end
 
+        -- vim设置lsp服务器
         local function setup(name, config)
             CheckInstall(name)
             local lsp = require("mason-lspconfig").get_mappings().package_to_lspconfig[name]
@@ -55,10 +57,10 @@ return {
         for _, package in ipairs(installed_package) do
             local config = servers[package] or {}
             config.capabilities = require("blink.cmp").get_lsp_capabilities()
-            config.on_attach = function(cliend)
+            config.on_attach = function(client)
                 -- 禁用文档格式化和选中范围格式化(针对当前lsp)
-                cliend.server_capabilities.documentFormattingProvider = false
-                cliend.server_capabilities.documentRangeFormattingProvider = false
+                client.server_capabilities.documentFormattingProvider = false
+                client.server_capabilities.documentRangeFormattingProvider = false
             end
             setup(package, config)
         end
@@ -82,6 +84,12 @@ return {
                 vim.lsp.enable(servers_name)
             end
         end
+
+        local augroup = vim.api.nvim_create_augroup("LspGroup", { clear = true })
+        vim.api.nvim_create_autocmd("FileType", {
+            group = augroup,
+            callback = lsp_start,
+        })
 
         -- 当使用nvim第一次打开文件时,lsp服务还没加载,这里需要手动加载一下
         lsp_start()
