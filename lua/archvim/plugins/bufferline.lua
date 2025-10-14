@@ -56,7 +56,7 @@ return {
 
     keys = {
         { "g<Tab>", "<cmd>BufferLineTogglePin<CR>", mode = { "n", "v" } },
-        { "gb",         "<cmd>BufferLineCyclePrev<CR>", mode = { "n", "v" } },
+        { "gp",         "<cmd>BufferLineCyclePrev<CR>", mode = { "n", "v" } },
         { "gn",         "<cmd>BufferLineCycleNext<CR>", mode = { "n", "v" } },
         { "g<Space>", "<cmd>BufferLinePick<CR>", mode = { "n", "v" } },
         { "g<BS>", "<cmd>bdelete<CR>", mode = { "n", "v" } },
