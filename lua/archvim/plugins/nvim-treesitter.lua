@@ -1,20 +1,21 @@
+local ensure_installed = {
+	"bash",
+	"c",
+	"cpp",
+	"lua",
+	"markdown",
+	"json",
+	"vim",
+	"vimdoc",
+}
 return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
-	event = "VeryLazy",
-	-- lazy = false,
+	-- event = "VeryLazy",
+	ft = ensure_installed,
 	branch = "main",
 	opts = {
-		ensure_installed = {
-			"bash",
-			"c",
-			"cpp",
-			"lua",
-			"markdown",
-			"json",
-			"vim",
-			"vimdoc",
-		},
+		ensure_installed = ensure_installed,
 		auto_install = true,
 		highlight = {
 			enable = true,
@@ -28,7 +29,7 @@ return {
 		local parsers = require("nvim-treesitter.parsers")
 		local pattern = {}
 		for _, parser in ipairs(opts.ensure_installed) do
-			local has_parser  = parsers[parser]
+			local has_parser = parsers[parser]
 			if not has_parser then
 				nvim_treesitter.install(parser)
 			else
