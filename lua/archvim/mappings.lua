@@ -11,6 +11,9 @@ vim.keymap.set("i", "kj", "<Esc>", { silent = true })
 vim.keymap.set("t", "jk", "<C-\\><C-n>", { silent = true })
 vim.keymap.set("t", "kj", "<C-\\><C-n>", { silent = true })
 
+-- esc时取消高亮
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { noremap = true, silent = true })
+
 -- 复制粘贴快捷键(该快捷键是否保留?)
 vim.keymap.set({ "n", "v" }, "<C-Insert>", '"+y', { silent = true })
 vim.keymap.set("i", "<C-Insert>", '<Esc>"+yya', { silent = true })
