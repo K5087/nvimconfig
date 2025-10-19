@@ -1,7 +1,6 @@
 return {
 	"Civitasv/cmake-tools.nvim",
-	ft = { "c", "cpp", "h", "hpp", "cmake" },
-	cmd = { "CMakeGenerate", "CMakeBuild", "CMakeRun", "CMakeSelectBuildType", "CMakeSelectKit" },
+	event = "User CMakeProject",
 	opts = {
 		cmake_command = "cmake", -- this is used to specify cmake command path
 		ctest_command = "ctest", -- this is used to specify ctest command path
@@ -20,7 +19,7 @@ return {
 			return "build/${variant:buildType}"
 		end, -- this is used to specify generate directory for cmake, allows macro expansion, can be a string or a function returning the string, relative to cwd.
 		cmake_compile_commands_options = {
-			action = "soft_link", -- available options: soft_link, copy, lsp, none
+			action = "lsp", -- available options: soft_link, copy, lsp, none
 			-- soft_link: this will automatically make a soft link from compile commands file to target
 			-- copy:      this will automatically copy compile commands file to target
 			-- lsp:       this will automatically set compile commands file location using lsp
@@ -145,4 +144,26 @@ return {
 		cmake_virtual_text_support = true, -- Show the target related to current file using virtual text (at right corner)
 		cmake_use_scratch_buffer = false, -- A buffer that shows what cmake-tools has done
 	},
+	config = function(_, opts)
+		local utils = require("core.utils")
+		local cmake_tools = require("cmake-tools")
+
+		-- cmake_tools.setup(opts)
+
+		local cmake_group = vim.api.nvim_create_augroup("CMakeEvents", { clear = false })
+
+		vim.api.nvim_create_autocmd("User", {
+			group = cmake_group,
+			pattern = "CMakeProject",
+			callback = function(args)
+				if not utils.is_cmake_project then
+					return
+				end
+				opts.cmake_compile_commands_options.target = args.data
+				cmake_tools.setup(opts)
+	               vim.notify("load project")
+			end,
+		})
+	       vim.notify("load cmake")
+	end,
 }
