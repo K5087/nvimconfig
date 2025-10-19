@@ -38,6 +38,6 @@ return {
 		},
 	},
 	keys = {
-		{ "gT", "<cmd>NvimTreeFindFileToggle<CR>", mode = { "n", "v", "t" }, silent = true },
+		{ "gt", "<cmd>NvimTreeFindFileToggle<CR>", mode = { "n", "v", "t" }, silent = true },
 	},
 }
