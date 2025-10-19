@@ -49,7 +49,8 @@ return {
                         }
                     }
                 }
-            }
+            },
+            ["clangd"] = {cmd = { "clangd", "--experimental-modules-support" },}
         }
 
         local installed_package = registry.get_installed_package_names()

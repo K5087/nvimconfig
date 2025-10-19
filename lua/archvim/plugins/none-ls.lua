@@ -13,7 +13,7 @@ return {
 		end
 
 		CheckInstall("stylua")
-		CheckInstall("clang_format")
+		CheckInstall("clang-format")
 		CheckInstall("jq")
 
 		local null_ls = require("null-ls")
