@@ -1,6 +1,5 @@
 return {
 	"glepnir/zephyr-nvim",
-	event = "UIEnter",
 	lazy = false,
 	priority = 1000,
 	config = function()

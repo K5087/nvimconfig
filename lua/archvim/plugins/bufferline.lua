@@ -3,7 +3,7 @@ return {
     dependencies = {
         "nvim-tree/nvim-web-devicons"
     },
-    event = "VeryLazy",
+    event = "BufWinEnter",
     config = function()
         require("bufferline").setup({
             options = {
@@ -49,9 +49,9 @@ return {
             end
         end
 
-        vim.api.nvim_create_autocmd("BufReadPost", {
-            callback = close_empty_unnamed_buffers,
-        })
+        -- vim.api.nvim_create_autocmd("BufReadPost", {
+        --     callback = close_empty_unnamed_buffers,
+        -- })
     end,
 
     keys = {
