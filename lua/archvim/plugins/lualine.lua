@@ -7,13 +7,10 @@ return {
 	opts = {
 		options = {
 			theme = "auto",
-			globalstatus = true,
+			globalstatus = false,
 			component_separators = { left = "", right = "" },
 			section_separators = { left = "", right = "" },
-		},
-		disabled_filetypes = {
-			statusline = { "dashboard" },
-			winbar = { 'dashboard' }
+			disabled_filetypes = { "dashboard", statusline = { "dashboard" }, winbar = { "dashboard" } },
 		},
 		extensions = { "nvim-tree" },
 		sections = {
@@ -29,6 +26,6 @@ return {
 		},
 	},
     config = function (_,opts)
-       -- require("lualine").setup(opts)
+        require("lualine").setup(opts)
     end
 }
