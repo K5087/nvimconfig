@@ -1,6 +1,6 @@
 return {
 	"Civitasv/cmake-tools.nvim",
-	event = "User CMakeProject",
+	event = "VeryLazy",
 	opts = {
 		cmake_command = "cmake", -- this is used to specify cmake command path
 		ctest_command = "ctest", -- this is used to specify ctest command path
@@ -161,9 +161,10 @@ return {
 				cmake_tools.setup(opts)
                 local cmake_component = require("archvim.config.cmake-component")
                 cmake_component.setup()
+                vim.notify("is cmake project")
 			end,
 		})
-
+        utils.check_cmake_project()
 
 	end,
 }
