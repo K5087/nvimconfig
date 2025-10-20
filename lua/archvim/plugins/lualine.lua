@@ -24,8 +24,5 @@ return {
 			lualine_y = {},
 			lualine_z = { "lsp_status" },
 		},
-	},
-    config = function (_,opts)
-        require("lualine").setup(opts)
-    end
+	}
 }
