@@ -13,6 +13,7 @@ local utils = {
 	is_wsl = string.find(vim.uv.os_uname().release, "WSL") ~= nil,
 
 	is_cmake_project = check_cmake_project(),
+	is_window_suit = vim.fn.winwidth(0) > 80,
 }
 
 -- 为CMake项目创建一个命令组
@@ -36,9 +37,18 @@ vim.api.nvim_create_autocmd("DirChanged", {
 		end
 		local cmake_list = vim.fn.findfile("CMakeLists.txt", ".;")
 		local path = vim.fn.fnamemodify(cmake_list, ":p:h")
-        vim.notify("is i do?")
 		vim.api.nvim_exec_autocmds("User", { pattern = "CMakeProject", data = path })
 	end,
 })
+
+local suitwindow_update_event = { "VimResized", "BufEnter" }
+for _, event in ipairs(suitwindow_update_event) do
+	vim.api.nvim_create_autocmd(event, {
+		group = utils_group,
+		callback = function()
+			utils.is_window_suit = vim.fn.winwidth(0) > 80
+		end,
+	})
+end
 
 return utils

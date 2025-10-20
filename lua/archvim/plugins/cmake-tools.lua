@@ -148,8 +148,6 @@ return {
 		local utils = require("core.utils")
 		local cmake_tools = require("cmake-tools")
 
-		-- cmake_tools.setup(opts)
-
 		local cmake_group = vim.api.nvim_create_augroup("CMakeEvents", { clear = false })
 
 		vim.api.nvim_create_autocmd("User", {
@@ -161,9 +159,11 @@ return {
 				end
 				opts.cmake_compile_commands_options.target = args.data
 				cmake_tools.setup(opts)
-	               vim.notify("load project")
+                local cmake_component = require("archvim.config.cmake-component")
+                cmake_component.setup()
 			end,
 		})
-	       vim.notify("load cmake")
+
+
 	end,
 }
