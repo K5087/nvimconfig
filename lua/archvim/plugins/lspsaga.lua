@@ -17,8 +17,8 @@ return {
 		{ "gK", "<cmd>Lspsaga preview_definition<CR>", mode = { "n" }, silent = true, noremap = true },
 
 		{ "K", "<cmd>Lspsaga hover_doc<CR>", mode = { "n" }, silent = true, noremap = true },
-		{ "<C-f>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", mode = { "n" }, silent = true, noremap = true },
-		{ "<C-b>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", mode = { "n" }, silent = true, noremap = true },
+		-- { "<C-f>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", mode = { "n" }, silent = true, noremap = true },
+		-- { "<C-b>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", mode = { "n" }, silent = true, noremap = true },
 		{ "gsk", "<cmd>Lspsaga show_line_diagnostics<CR>", mode = { "n" }, silent = true, noremap = true },
 
         { "[a", "<cmd>Lspsaga diagnostic_jump_prev<CR>", mode = { "n" }, silent = true, noremap = true },
