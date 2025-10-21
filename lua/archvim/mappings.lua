@@ -12,7 +12,7 @@ vim.keymap.set("t", "jk", "<C-\\><C-n>", { silent = true })
 vim.keymap.set("t", "kj", "<C-\\><C-n>", { silent = true })
 
 -- esc时取消高亮
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { noremap = true, silent = true })
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { noremap = true, silent = true })
 
 -- 复制粘贴快捷键(该快捷键是否保留?)
 vim.keymap.set({ "n", "v" }, "<C-Insert>", '"+y', { silent = true })
@@ -24,12 +24,7 @@ vim.keymap.set("i", "<S-Insert>", "<C-r>+", { silent = true })
 vim.opt.clipboard = "unnamed,unnamedplus"
 
 -- 撤销快捷键
-vim.keymap.set(
-	{ "n", "i","v" },
-	"<C-z>",
-    "<Esc>:u<CR>",
-	{ silent = true,}
-)
+vim.keymap.set({ "n", "i", "v" }, "<C-z>", "<Esc>:u<CR>", { silent = true })
 
 vim.keymap.set(
 	{ "v", "n" },
@@ -57,12 +52,12 @@ end)
 -- vim.keymap.set({"v", "n", "i", "t"}, "<F7>", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true })
 
 -- 查找符号定义
-vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = 'Goto definition' })
+vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "Goto definition" })
 -- 查找符号声明
 vim.keymap.set("n", "gD", function()
-    vim.lsp.buf.declaration()
-end, { desc = 'Goto declaration' })
+	vim.lsp.buf.declaration()
+end, { desc = "Goto declaration" })
 
 -- 查找文件
-vim.keymap.set("n","gfd","<cmd>Telescope fd<CR>",{desc = 'serach file by name'})
-vim.keymap.set("n","gip","<cmd>Telescope live_grep<CR>",{desc = 'search file by content'})
+vim.keymap.set("n", "gfd", "<cmd>Telescope fd<CR>", { desc = "serach file by name" })
+vim.keymap.set("n", "gip", "<cmd>Telescope live_grep<CR>", { desc = "search file by content" })
