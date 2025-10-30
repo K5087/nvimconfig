@@ -1,0 +1,9 @@
+[
+  {
+    "name": "clangd 21.1.4",
+    "compilers": {
+      "C": "/usr/bin/clang",
+      "CXX": "/usr/bin/clang++"
+    }
+  }
+]
