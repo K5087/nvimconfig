@@ -1,5 +1,6 @@
 local utils = require("core.utils")
-local cmake_tools = require("cmake-tools")
+-- local cmake_tools = require("cmake-tools")
+local cmake = require("cmake-tools")
 
 local cmake_component = {
 	-- {
