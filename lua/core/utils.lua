@@ -9,7 +9,6 @@ vim.api.nvim_create_autocmd({ "User" }, {
 	callback = function() end,
 })
 
-
 local utils = {
 	version = version,
 
@@ -19,13 +18,17 @@ local utils = {
 	is_wsl = string.find(vim.uv.os_uname().release, "WSL") ~= nil,
 
 	is_cmake_project = false,
-	is_window_suit = vim.fn.winwidth(0) > 80,
+	is_window_suit = vim.fn.winwidth(0) > 50,
 }
 
 function utils:check_cmake_project()
 	local cmake_file = vim.fn.findfile("CMakeLists.txt", ".;")
 	utils.is_cmake_project = cmake_file ~= ""
 	if not utils.is_cmake_project then
+		if utils.project_set_cancel then
+			utils.project_set_cancel()
+			utils.project_set_cancel = nil
+		end
 		return
 	end
 	local path = vim.fn.fnamemodify(cmake_file, ":p:h")
@@ -37,7 +40,7 @@ local utils_group = vim.api.nvim_create_augroup("utils_upate", { clear = true })
 
 vim.api.nvim_create_autocmd("DirChanged", {
 	group = utils_group,
-	callback = utils.check_cmake_project 
+	callback = utils.check_cmake_project,
 })
 
 local suitwindow_update_event = { "VimResized", "BufEnter" }
@@ -45,7 +48,7 @@ for _, event in ipairs(suitwindow_update_event) do
 	vim.api.nvim_create_autocmd(event, {
 		group = utils_group,
 		callback = function()
-			utils.is_window_suit = vim.fn.winwidth(0) > 80
+			utils.is_window_suit = vim.fn.winwidth(0) > 50
 		end,
 	})
 end

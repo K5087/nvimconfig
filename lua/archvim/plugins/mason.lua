@@ -50,7 +50,19 @@ return {
 					},
 				},
 			},
-			["clangd"] = { cmd = { "clangd", "--experimental-modules-support" } },
+			["clangd"] = {
+				cmd = {
+					"clangd",
+					"--background-index",
+					"--clang-tidy",
+					"--completion-style=detailed",
+				},
+				init_options = {
+					completion = {
+						includeInsertion = "smart",
+					},
+				},
+			},
 		}
 
 		local installed_package = registry.get_installed_package_names()

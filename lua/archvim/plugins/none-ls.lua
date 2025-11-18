@@ -16,6 +16,7 @@ return {
 		CheckInstall("stylua")
 		CheckInstall("clang-format")
 		CheckInstall("jq")
+        CheckInstall("gersemi")
 
 		local null_ls = require("null-ls")
 		local helpers = require("null-ls.helpers")
@@ -63,13 +64,14 @@ return {
 		null_ls.setup({
 			sources = {
 				null_ls.builtins.formatting.stylua,
+                null_ls.builtins.formatting.gersemi,
 				null_ls.builtins.formatting.clang_format,
 				jq_formatter,
 			},
 			on_attach = function(client, bufnr)
-				if client.supports_method("textDocument/formatting") then
+				if client.supports_method("textdocument/formatting") then
 					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-					vim.api.nvim_create_autocmd("BufWritePost", {
+					vim.api.nvim_create_autocmd("bufwritepost", {
 						group = augroup,
 						buffer = bufnr,
 						callback = function()
