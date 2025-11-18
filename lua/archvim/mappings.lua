@@ -61,3 +61,8 @@ end, { desc = "Goto declaration" })
 -- 查找文件
 vim.keymap.set("n", "gfd", "<cmd>Telescope fd<CR>", { desc = "serach file by name" })
 vim.keymap.set("n", "gip", "<cmd>Telescope live_grep<CR>", { desc = "search file by content" })
+
+-- 头文件/源文件跳转
+vim.keymap.set({"v","n"},"go","<cmd>LspClangdSwitchSourceHeader<CR>",{silent = true})
+vim.keymap.set({"v","n"},"gO","<cmd>vsplit | LspClangdSwitchSourceHeader<CR>",{silent = true})
+vim.keymap.set({"v","n"},"g<C-o>","<cmd>split | LspClangdSwitchSourceHeader<CR>",{silent = true})

@@ -160,7 +160,10 @@ return {
 				opts.cmake_compile_commands_options.target = args.data
 				cmake_tools.setup(opts)
 				local cmake_component = require("archvim.config.cmake-component")
-				cmake_component.setup()
+				cmake_component.setup(true)
+				utils.project_set_cancel = function()
+					cmake_component.setup(false)
+				end
 			end,
 		})
 		utils.check_cmake_project()

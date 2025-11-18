@@ -162,11 +162,36 @@ local cmake_component = {
 		end,
 	},
 }
+local aerial = {
+    'aerial',
+    cond = function()
+        return vim.bo.buftype == ''
+    end,
+    on_click = function(n, mouse)
+        if (n == 1) then
+            if (mouse == "l") then
+                vim.cmd[[AerialToggle]]
+            end
+        end
+    end,
+}
 local cmake_component_tool = {}
-function cmake_component_tool:setup()
+function cmake_component_tool.setup(is_add)
 	local lualine = require("lualine")
 	local lualine_opt = lualine.get_config()
-	lualine_opt.sections.lualine_c = { cmake_component[1], cmake_component[2], cmake_component[3], cmake_component[4] }
+	-- lualine_opt.sections.lualine_c = { cmake_component[1], cmake_component[2], cmake_component[3], cmake_component[4] }
+	if is_add then
+		lualine_opt.winbar = {
+			lualine_a = {},
+			lualine_b = { cmake_component[1], cmake_component[2] },
+			lualine_c = { cmake_component[3], cmake_component[4] },
+			lualine_x = {aerial},
+			lualine_y = {},
+			lualine_z = {},
+		}
+	else
+		lualine_opt.winbar = {}
+	end
 	lualine.setup(lualine_opt)
 end
 
