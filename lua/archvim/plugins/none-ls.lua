@@ -15,8 +15,9 @@ return {
 
 		CheckInstall("stylua")
 		CheckInstall("clang-format")
-		CheckInstall("jq")
+		-- CheckInstall("jq")
         CheckInstall("gersemi")
+        CheckInstall("prettierd")
 
 		local null_ls = require("null-ls")
 		local helpers = require("null-ls.helpers")
@@ -65,8 +66,9 @@ return {
 			sources = {
 				null_ls.builtins.formatting.stylua,
                 null_ls.builtins.formatting.gersemi,
+                null_ls.builtins.formatting.prettierd,
 				null_ls.builtins.formatting.clang_format,
-				jq_formatter,
+				-- jq_formatter,
 			},
 			on_attach = function(client, bufnr)
 				if client.supports_method("textdocument/formatting") then
