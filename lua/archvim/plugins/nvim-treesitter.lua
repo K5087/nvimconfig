@@ -21,27 +21,27 @@ return {
 			enable = true,
 		},
 	},
-
-	config = function(_, opts)
-		local nvim_treesitter = require("nvim-treesitter")
-		nvim_treesitter.setup(opts)
-
-		local parsers = require("nvim-treesitter.parsers")
-		local pattern = {}
-		for _, parser in ipairs(opts.ensure_installed) do
-			local has_parser = parsers[parser]
-			if not has_parser then
-				nvim_treesitter.install(parser)
-			else
-				vim.list_extend(pattern, vim.treesitter.language.get_filetypes(parser))
-			end
-		end
-		vim.api.nvim_create_autocmd("FileType", {
-			pattern = pattern,
-			callback = function()
-				vim.treesitter.start()
-			end,
-		})
-		vim.api.nvim_exec_autocmds("FileType", {})
-	end,
+	--
+	-- config = function(_, opts)
+	-- 	local nvim_treesitter = require("nvim-treesitter")
+	-- 	nvim_treesitter.setup(opts)
+	--
+	-- 	local parsers = require("nvim-treesitter.parsers")
+	-- 	local pattern = {}
+	-- 	for _, parser in ipairs(opts.ensure_installed) do
+	-- 		local has_parser = parsers[parser]
+	-- 		if not has_parser then
+	-- 			nvim_treesitter.install(parser)
+	-- 		else
+	-- 			vim.list_extend(pattern, vim.treesitter.language.get_filetypes(parser))
+	-- 		end
+	-- 	end
+	-- 	vim.api.nvim_create_autocmd("FileType", {
+	-- 		pattern = pattern,
+	-- 		callback = function()
+	-- 			vim.treesitter.start()
+	-- 		end,
+	-- 	})
+	-- 	vim.api.nvim_exec_autocmds("FileType", {})
+	-- end,
 }
