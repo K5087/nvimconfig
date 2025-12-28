@@ -15,22 +15,11 @@ return {
 
 		CheckInstall("stylua")
 		CheckInstall("clang-format")
-		-- CheckInstall("jq")
-        CheckInstall("gersemi")
-        CheckInstall("prettierd")
+		CheckInstall("gersemi")
+		CheckInstall("prettierd")
 
 		local null_ls = require("null-ls")
-		local helpers = require("null-ls.helpers")
-		local jq_formatter = {
-			name = "jq",
-			method = null_ls.methods.FORMATTING,
-			filetypes = { "json" },
-			generator = helpers.formatter_factory({
-				command = "jq",
-				args = { "." },
-				to_stdin = true,
-			}),
-		}
+
 		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 		local async_formatting = function(bufnr)
 			bufnr = bufnr or vim.api.nvim_get_current_buf()
@@ -65,10 +54,9 @@ return {
 		null_ls.setup({
 			sources = {
 				null_ls.builtins.formatting.stylua,
-                null_ls.builtins.formatting.gersemi,
-                null_ls.builtins.formatting.prettierd,
+				null_ls.builtins.formatting.gersemi,
+				null_ls.builtins.formatting.prettierd,
 				null_ls.builtins.formatting.clang_format,
-				-- jq_formatter,
 			},
 			on_attach = function(client, bufnr)
 				if client.supports_method("textdocument/formatting") then
@@ -84,10 +72,4 @@ return {
 			end,
 		})
 	end,
-	keys = { {
-		"g=",
-		function()
-			vim.lsp.buf.format()
-		end,
-	} },
 }

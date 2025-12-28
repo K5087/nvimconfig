@@ -1,28 +1,8 @@
 local utils = require("core.utils")
--- local cmake_tools = require("cmake-tools")
 local cmake = require("cmake-tools")
 
 local cmake_component = {
-	-- {
-	--     function()
-	--         local kit = cmake.get_kit()
-	--         return string.format("[%s]", kit)
-	--     end,
-	--     icon = icons.ui.Pencil,
-	--     cond = function()
-	--         return utils.is_window_suit and cmake.get_kit()
-	--     end,
-	--     on_click = function(n, mouse)
-	--         if (n == 1) then
-	--             if (mouse == "l") then
-	--                 vim.cmd("CMakeSelectKit")
-	--             elseif (mouse == "r") then
-	--                 vim.cmd("edit CMakeKits.json")
-	--             end
-	--         end
-	--     end
-	-- },
-	{
+	kit = {
 		function()
 			if cmake.has_cmake_preset() then
 				local b_preset = cmake.get_build_preset()
@@ -54,8 +34,9 @@ local cmake_component = {
 				end
 			end
 		end,
+		color = { bg = "NONE" },
 	},
-	{
+	build = {
 		function()
 			local b_target = cmake.get_build_target()
 			if not b_target or b_target == "all" then
@@ -89,21 +70,9 @@ local cmake_component = {
 				end
 			end
 		end,
+		color = { bg = "NONE" },
 	},
-	-- {
-	--     function()
-	--         return icons.ui.Debug
-	--     end,
-	--     cond = cmake.is_cmake_project,
-	--     on_click = function(n, mouse)
-	--         if (n == 1) then
-	--             if (mouse == "l") then
-	--                 cmake.debug{}
-	--             end
-	--         end
-	--     end
-	-- },
-	{
+	debug = {
 		function()
 			return ""
 		end,
@@ -130,7 +99,7 @@ local cmake_component = {
 			end
 		end,
 	},
-	{
+	exec = {
 		function()
 			local l_target = cmake.get_launch_target()
 			if not l_target then
@@ -162,35 +131,18 @@ local cmake_component = {
 		end,
 	},
 }
-local aerial = {
-    'aerial',
-    cond = function()
-        return vim.bo.buftype == ''
-    end,
-    on_click = function(n, mouse)
-        if (n == 1) then
-            if (mouse == "l") then
-                vim.cmd[[AerialToggle]]
-            end
-        end
-    end,
-}
+
 local cmake_component_tool = {}
 function cmake_component_tool.setup(is_add)
 	local lualine = require("lualine")
 	local lualine_opt = lualine.get_config()
-	-- lualine_opt.sections.lualine_c = { cmake_component[1], cmake_component[2], cmake_component[3], cmake_component[4] }
+
 	if is_add then
-		lualine_opt.winbar = {
-			lualine_a = {},
-			lualine_b = { cmake_component[1], cmake_component[2] },
-			lualine_c = { cmake_component[3], cmake_component[4] },
-			lualine_x = {aerial},
-			lualine_y = {},
-			lualine_z = {},
-		}
+		lualine_opt.winbar.lualine_b = { cmake_component.kit, cmake_component.build }
+		lualine_opt.winbar.lualine_c = { cmake_component.debug, cmake_component.exec }
 	else
-		lualine_opt.winbar = {}
+		lualine_opt.winbar.lualine_b = {}
+		lualine_opt.winbar.lualine_c = {}
 	end
 	lualine.setup(lualine_opt)
 end
