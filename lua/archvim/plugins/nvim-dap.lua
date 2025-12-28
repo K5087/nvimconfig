@@ -1,5 +1,8 @@
 return {
 	"mfussenegger/nvim-dap",
+	dependencies = {
+		"rcarriga/nvim-dap-ui",
+	},
 	event = "User CMakeProject",
 	config = function(_, opt)
 		local dap = require("dap")
@@ -19,18 +22,36 @@ return {
 				stopOnEntry = false,
 			},
 		}
+		dap.configurations.c = dap.configurations.cpp
+
 		local dapui = require("dapui")
-		dap.listeners.before.attach.dapui_config = function()
+
+		local function startdebug()
 			dapui.open()
+
+			vim.keymap.set({ "v", "n", "i", "t" }, "<Up>", "<cmd>DapRestartFrame<CR>", { silent = true })
+			vim.keymap.set({ "v", "n", "i", "t" }, "<Down>", "<cmd>DapStepOver<CR>", { silent = true })
+			vim.keymap.set({ "v", "n", "i", "t" }, "<Right>", "<cmd>DapStepInto<CR>", { silent = true })
+			vim.keymap.set({ "v", "n", "i", "t" }, "<Left>", "<cmd>DapStepOut<CR>", { silent = true })
 		end
-		dap.listeners.before.launch.dapui_config = function()
-			dapui.open()
-		end
-		dap.listeners.before.event_terminated.dapui_config = function()
+
+		local function enddebug()
+			pcall(vim.keymap.del, { "v", "n", "i", "t" }, "<Up>")
+			pcall(vim.keymap.del, { "v", "n", "i", "t" }, "<Down>")
+			pcall(vim.keymap.del, { "v", "n", "i", "t" }, "<Left>")
+			pcall(vim.keymap.del, { "v", "n", "i", "t" }, "<Right>")
+
 			dapui.close()
 		end
-		dap.listeners.before.event_exited.dapui_config = function()
-			dapui.close()
-		end
+
+		dap.listeners.after.event_initialized.dapui_config = startdebug
+		dap.listeners.before.event_terminated.dapui_config = enddebug
+		dap.listeners.before.event_exited.dapui_config = enddebug
+
+		vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
+		vim.fn.sign_define("DapBreakpointCondition", { text = "⭕", texthl = "", linehl = "", numhl = "" })
+		vim.fn.sign_define("DapBreakpointRejected", { text = "🚫", texthl = "", linehl = "", numhl = "" })
+		vim.fn.sign_define("DapLogPoint", { text = "📔", texthl = "", linehl = "", numhl = "" })
+		vim.fn.sign_define("DapStopped", { text = "👉", texthl = "", linehl = "", numhl = "" })
 	end,
 }
