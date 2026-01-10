@@ -144,6 +144,7 @@ function cmake_component_tool.setup(is_add)
 		lualine_opt.winbar.lualine_b = {}
 		lualine_opt.winbar.lualine_c = {}
 	end
+	lualine_opt.inactive_winbar = lualine_opt.winbar
 	lualine.setup(lualine_opt)
 end
 

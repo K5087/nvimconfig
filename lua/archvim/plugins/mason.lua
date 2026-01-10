@@ -42,6 +42,7 @@ return {
 
 		local servers = {
 			["lua-language-server"] = {
+				cmd = { vim.fn.stdpath("data") .. "/mason/bin/lua-language-server" },
 				settings = {
 					Lua = {
 						diagnostics = {
@@ -53,9 +54,10 @@ return {
 			["clangd"] = {
 				cmd = {
 					"clangd",
-					"--background-index",
+					"--background-index=false",
 					"--clang-tidy",
-					"--completion-style=detailed",
+					"--completion-style=bundled",
+					"--header-insertion=never",
 				},
 				init_options = {
 					completion = {
