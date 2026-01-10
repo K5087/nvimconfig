@@ -11,6 +11,7 @@
 | bufferline       | 标签页                                         |
 | cmake-tools      | CMake项目工具                                  |
 | dashboard        | 启动页面                                       |
+| dressing         | 替换有问题的选择界面                           |
 | generate         | C++头文件生成cpp文件工具（可能不太适配开发环境 |
 | hop              | 快捷跳转文档中任意位置                         |
 | indent-blankline | 添加缩进线                                     |
@@ -21,7 +22,7 @@
 | none-ls          | 专用的代码格式化工具                           |
 | nvim-autopairs   | 自动添加成对符号                               |
 | nvim-dap-ui      | 调试器界面                                     |
-| nvim-dap         | 调试器插件                                     |
+| nvim-dap         | 调试器                                         |
 | nvim-Notify      | 美化通知消息                                   |
 | nvim-surround    | 成对符号的添加修改和删除(例如{},"")            |
 | nvim-tree        | 文件系统GUI                                    |
