@@ -7,7 +7,7 @@ return {
 				toggle_or_open = "<CR>",
 			},
 		},
-		symbol_in_winbar = { enable = true },
+		symbol_in_winbar = { enable = false },
 	},
 	keys = {
 		{ "gA", "<cmd>Lspsaga code_action<CR>", mode = { "n" }, silent = true, noremap = true },
