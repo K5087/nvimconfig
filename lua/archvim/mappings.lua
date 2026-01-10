@@ -20,8 +20,6 @@ vim.keymap.set("i", "<C-Insert>", '<Esc>"+yya', { silent = true })
 vim.keymap.set({ "n", "v" }, "<S-Insert>", '"+p', { silent = true })
 vim.keymap.set("i", "<S-Insert>", "<C-r>+", { silent = true })
 
--- 将"寄存器与+寄存器绑定
-vim.opt.clipboard = "unnamed,unnamedplus"
 
 -- 撤销快捷键
 vim.keymap.set({ "n", "i", "v" }, "<C-z>", "<Esc>:u<CR>", { silent = true })
