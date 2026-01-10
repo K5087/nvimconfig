@@ -4,6 +4,9 @@ vim.g.mapleader = ","
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+-- 设置符号列占用行号
+vim.opt.signcolumn="number"
+
 -- 高亮当前行
 vim.opt.cursorline = true
 
@@ -11,6 +14,9 @@ vim.opt.cursorline = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 0
+
+-- 将"寄存器与+寄存器绑定
+vim.opt.clipboard = "unnamed,unnamedplus"
 
 -- 文件被外部程序修改后自动重新加载
 vim.opt.autoread = true
@@ -28,6 +34,7 @@ vim.opt.termguicolors = true
 
 -- 在进入命令行后才读取历史信息文件(shada)
 vim.opt.shadafile = "NONE"
+
 -- vim.api.nvim_create_autocmd("CmdlineEnter", {
 --     once = true,
 --     callback = function()
