@@ -60,7 +60,7 @@ return {
         { "gn",         "<cmd>BufferLineCycleNext<CR>", mode = { "n", "v" } },
         { "g<Space>", "<cmd>BufferLinePick<CR>", mode = { "n", "v" } },
         { "g<BS>", "<cmd>bdelete<CR>", mode = { "n", "v" } },
-        { "gmb", "<cmd>BufferLineMovePrev<CR>", mode = { "n", "v" } },
+        { "gmp", "<cmd>BufferLineMovePrev<CR>", mode = { "n", "v" } },
         { "gmn", "<cmd>BufferLineMoveNext<CR>", mode = { "n", "v" } },
         { "g<S-Tab>", "<cmd>BufferLineCloseOthers<CR>", mode = { "n", "v" } },
         { "g<C-b>", "<cmd>BufferLineCloseLeft<CR>", mode = { "n", "v" } },

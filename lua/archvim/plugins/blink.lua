@@ -14,8 +14,16 @@ return {
 		keymap = {
 			preset = "super-tab",
 		},
+
 		sources = {
-			default = { "path", "snippets", "buffer", "lsp" },
+			default = { "lazydev", "lsp", "buffer", "path", "snippets" },
+			providers = {
+				lazydev = {
+					name = "LazyDev",
+					module = "lazydev.integrations.blink",
+					score_offset = 100,
+				},
+			},
 		},
 		cmdline = {
 			sources = function()

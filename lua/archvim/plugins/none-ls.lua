@@ -59,6 +59,7 @@ return {
 				null_ls.builtins.formatting.clang_format,
 			},
 			on_attach = function(client, bufnr)
+				client.server_capabilities.completionProvider = nil
 				if client.supports_method("textdocument/formatting") then
 					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 					vim.api.nvim_create_autocmd("bufwritepost", {
