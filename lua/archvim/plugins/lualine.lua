@@ -51,13 +51,13 @@ return {
 		},
 		winbar = {
 			lualine_x = { aerial },
-			lualine_y = {},
-			lualine_z = {},
+			lualine_y = { "fileformat" },
+            lualine_z = {},
 		},
 		inactive_winbar = {
 			lualine_x = { aerial },
-			lualine_y = {},
-			lualine_z = {},
+			lualine_y = { "fileformat" },
+            lualine_z = {},
 		},
 	},
 	config = function(_, opt)

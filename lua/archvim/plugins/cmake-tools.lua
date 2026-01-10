@@ -166,6 +166,6 @@ return {
 				end
 			end,
 		})
-		utils.check_cmake_project()
+		utils:check_cmake_project()
 	end,
 }
