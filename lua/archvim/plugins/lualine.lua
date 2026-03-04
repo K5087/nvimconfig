@@ -1,17 +1,3 @@
-local aerial = {
-	"aerial",
-	-- cond = function()
-	-- 	return vim.bo.buftype == ""
-	-- end,
-	on_click = function(n, mouse)
-		if n == 1 then
-			if mouse == "l" then
-				vim.cmd([[AerialToggle]])
-			end
-		end
-	end,
-}
-
 return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = {
@@ -50,14 +36,14 @@ return {
 			lualine_z = { "lsp_status" },
 		},
 		winbar = {
-			lualine_x = { aerial },
+			lualine_x = {},
 			lualine_y = { "fileformat" },
-            lualine_z = {},
+			lualine_z = {},
 		},
 		inactive_winbar = {
-			lualine_x = { aerial },
+			lualine_x = {},
 			lualine_y = { "fileformat" },
-            lualine_z = {},
+			lualine_z = {},
 		},
 	},
 	config = function(_, opt)

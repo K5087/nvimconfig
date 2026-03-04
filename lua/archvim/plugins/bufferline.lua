@@ -63,8 +63,8 @@ return {
         { "gmp", "<cmd>BufferLineMovePrev<CR>", mode = { "n", "v" } },
         { "gmn", "<cmd>BufferLineMoveNext<CR>", mode = { "n", "v" } },
         { "g<S-Tab>", "<cmd>BufferLineCloseOthers<CR>", mode = { "n", "v" } },
-        { "g<C-b>", "<cmd>BufferLineCloseLeft<CR>", mode = { "n", "v" } },
-        { "g<C-t>", "<cmd>BufferLineCloseRight<CR>", mode = { "n", "v" } },
+        { "g<C-p>", "<cmd>BufferLineCloseLeft<CR>", mode = { "n", "v" } },
+        { "g<C-n>", "<cmd>BufferLineCloseRight<CR>", mode = { "n", "v" } },
 
         { "<F1>", "<cmd>BufferLineTogglePin<CR>", mode = { "n", "v", "i" } },
         { "<F2>", "<cmd>BufferLineCyclePrev<CR>", mode = { "n", "v", "i" } },
