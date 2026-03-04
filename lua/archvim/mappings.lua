@@ -20,7 +20,6 @@ vim.keymap.set("i", "<C-Insert>", '<Esc>"+yya', { silent = true })
 vim.keymap.set({ "n", "v" }, "<S-Insert>", '"+p', { silent = true })
 vim.keymap.set("i", "<S-Insert>", "<C-r>+", { silent = true })
 
-
 -- 撤销快捷键
 vim.keymap.set({ "n", "i", "v" }, "<C-z>", "<Esc>:u<CR>", { silent = true })
 
@@ -40,12 +39,9 @@ vim.keymap.set({ "v", "n", "i" }, "<F4>", "<cmd>wa<CR>", { desc = "save buffer" 
 vim.keymap.set({ "v", "n", "i" }, "<F6>", "<cmd>cclose | Trouble qflist toggle<CR>")
 
 -- 格式化代码
-vim.keymap.set({ "v", "n"}, "g=", function()
+vim.keymap.set({ "v", "n" }, "g=", function()
 	vim.lsp.buf.format()
 end)
-
--- 插件快捷键
--- vim.keymap.set({"v", "n", "i", "t"}, "<F7>", "<cmd>NvimTreeFindFileToggle<CR>", { silent = true })
 
 -- 查找符号定义
 vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "Goto definition" })
@@ -53,6 +49,28 @@ vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "Goto d
 vim.keymap.set("n", "gD", function()
 	vim.lsp.buf.declaration()
 end, { desc = "Goto declaration" })
+-- 查找类型定义
+vim.keymap.set({ "v", "n" }, "gy", "<cmd>Telescope lsp_type_definitions<CR>", { desc = "Goto type definition" })
+-- 查找所有引用
+vim.keymap.set({ "v", "n" }, "gr", "<cmd>Telescope lsp_references<CR>", { desc = "Find references" })
+-- 删除预定义的一些干扰
+pcall(vim.keymap.del, { "n" }, "gri")
+pcall(vim.keymap.del, { "n" }, "grr")
+pcall(vim.keymap.del, { "v", "n" }, "gra")
+pcall(vim.keymap.del, { "n" }, "grn")
+pcall(vim.keymap.del, { "v" }, "grc")
+pcall(vim.keymap.del, { "n" }, "grt")
+-- 查找函数实现
+vim.keymap.set({ "v", "n" }, "gY", "<cmd>Telescope lsp_implementations<CR>", { desc = "Find implementations" })
+-- 查看全部
+vim.keymap.set({ "v", "n" }, "gz", "<cmd>Trouble lsp toggle<CR>")
+-- 查看类型继承图
+vim.keymap.set({ "v", "n" }, "gst", function()
+	vim.lsp.buf.typehierarchy("subtypes")
+end, { desc = "List derived class hierarchy" })
+vim.keymap.set({ "v", "n" }, "gsT", function()
+	vim.lsp.buf.typehierarchy("supertypes")
+end, { desc = "List base class hierarchy" })
 
 -- 查找文件
 vim.keymap.set("n", "gfd", "<cmd>Telescope fd<CR>", { desc = "serach file by name" })
@@ -75,7 +93,7 @@ vim.keymap.set({ "v", "n", "i", "t" }, "<F10>", "<cmd>DapToggleBreakpoint<CR>", 
 vim.keymap.set({ "v", "n" }, "<F5>", function()
 	local cmake = require("cmake-tools")
 	local dap = require("dap")
-	if dap.session() ~=nil then
+	if dap.session() ~= nil then
 		dap.continue()
 	else
 		local l_target = cmake.get_launch_target()

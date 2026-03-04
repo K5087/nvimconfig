@@ -1,6 +1,7 @@
 return {
 	"mason-org/mason.nvim",
-	event = "VeryLazy",
+	-- event = "VeryLazy",
+    cmd  = {"Mason"},
 	dependencies = {
 		"neovim/nvim-lspconfig",
 		"mason-org/mason-lspconfig.nvim",
@@ -53,8 +54,9 @@ return {
 			},
 			["clangd"] = {
 				cmd = {
-					"clangd",
-					"--background-index=false",
+					"C:/OS/ToolChain/llvm-mingw-20251216-ucrt-x86_64/bin/clangd",
+					"--background-index",
+                    "--query-driver=C:/OS/ToolChain/llvm-mingw-20251216-ucrt-x86_64/bin/*",
 					"--clang-tidy",
 					"--completion-style=bundled",
 					"--header-insertion=never",
