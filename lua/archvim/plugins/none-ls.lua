@@ -1,7 +1,7 @@
 return {
 	"nvimtools/none-ls.nvim",
 	dependencies = { "nvim-lua/plenary.nvim" },
-	ft = { "h", "c", "hpp", "cpp", "lua", "json", "markdown" },
+	ft = { "h", "c", "hpp", "cpp", "lua", "json", "markdown", "txt","cmake" },
 	-- event = "VeryLazy",
 	config = function()
 		local registry = require("mason-registry")

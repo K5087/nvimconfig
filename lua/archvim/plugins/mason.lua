@@ -54,9 +54,9 @@ return {
 			},
 			["clangd"] = {
 				cmd = {
-					"C:/OS/ToolChain/llvm-mingw-20251216-ucrt-x86_64/bin/clangd",
+					"clangd",
 					"--background-index",
-                    "--query-driver=C:/OS/ToolChain/llvm-mingw-20251216-ucrt-x86_64/bin/*",
+                    -- "--query-driver=C:/OS/ToolChain/llvm-mingw-20251216-ucrt-x86_64/bin/*",
 					"--clang-tidy",
 					"--completion-style=bundled",
 					"--header-insertion=never",
