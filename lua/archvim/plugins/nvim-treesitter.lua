@@ -2,7 +2,7 @@ return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
 	-- event = "VeryLazy",
-	ft = { "BufReadPost", "BufNewFile" },
+	event = { "BufReadPost", "BufNewFile" },
 	branch = "main",
 	opts = {
 		ensure_installed = { "bash", "c", "cpp", "lua", "markdown", "json" },
