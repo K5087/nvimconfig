@@ -1,7 +1,6 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
-	-- event = "VeryLazy",
 	event = { "BufReadPost", "BufNewFile" },
 	branch = "main",
 	opts = {
@@ -35,13 +34,6 @@ return {
 				vim.list_extend(pattern, vim.treesitter.language.get_filetypes(parser))
 			end
 		end
-		-- vim.api.nvim_create_autocmd("FileType", {
-		-- 	pattern = pattern,
-		-- 	callback = function()
-		-- 		vim.treesitter.start()
-		-- 	end,
-		-- })
-		-- vim.api.nvim_exec_autocmds("FileType", {})
 
 		vim.opt.foldmethod = "expr"
 		vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"

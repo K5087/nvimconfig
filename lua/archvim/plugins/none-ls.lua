@@ -1,7 +1,7 @@
 return {
 	"nvimtools/none-ls.nvim",
 	dependencies = { "nvim-lua/plenary.nvim" },
-	ft = { "h", "c", "hpp", "cpp", "lua", "json", "markdown", "txt","cmake" },
+	ft = { "h", "c", "hpp", "cpp", "lua", "json", "markdown", "txt", "cmake" },
 	-- event = "VeryLazy",
 	config = function()
 		local registry = require("mason-registry")
@@ -13,10 +13,10 @@ return {
 			end
 		end
 
-		CheckInstall("stylua")
-		CheckInstall("clang-format")
-		CheckInstall("gersemi")
-		CheckInstall("prettierd")
+		local install_packages = { "stylue", "clang-format", "gersemi", "prettierd" }
+        for _,v in ipairs(install_packages) do
+            CheckInstall(v)
+        end
 
 		local null_ls = require("null-ls")
 
@@ -60,9 +60,9 @@ return {
 			},
 			on_attach = function(client, bufnr)
 				client.server_capabilities.completionProvider = nil
-				if client.supports_method("textdocument/formatting") then
+				if client.server_capabilities.documentFormattingProvider then
 					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-					vim.api.nvim_create_autocmd("bufwritepost", {
+					vim.api.nvim_create_autocmd("BufWritePost", {
 						group = augroup,
 						buffer = bufnr,
 						callback = function()
