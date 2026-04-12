@@ -1,3 +1,4 @@
+-- leader键
 vim.g.mapleader = ","
 
 -- 行号
@@ -5,7 +6,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- 设置符号列占用行号
-vim.opt.signcolumn="number"
+vim.opt.signcolumn = "number"
 
 -- 高亮当前行
 vim.opt.cursorline = true
@@ -31,15 +32,3 @@ vim.opt.smartcase = true
 
 -- 将vim设置为24位颜色
 vim.opt.termguicolors = true
-
--- 在进入命令行后才读取历史信息文件(shada)
-vim.opt.shadafile = "NONE"
-
--- vim.api.nvim_create_autocmd("CmdlineEnter", {
---     once = true,
---     callback = function()
---         local shada = vim.fn.stdpath("state") .. "/shada/main.shada"
---         vim.o.shadafile = shada
---         vim.api.nvim_command("rshada! " .. shada)
---     end,
--- })

@@ -1,9 +1,0 @@
-[
-  {
-    "name": "clangd 21.1.8",
-    "compilers": {
-      "C": "C:/OS/ToolChain/llvm-mingw-20251216-ucrt-x86_64/bin/clang.exe",
-      "CXX": "C:/OS/ToolChain/llvm-mingw-20251216-ucrt-x86_64/bin/clang++.exe"
-    }
-  }
-]
