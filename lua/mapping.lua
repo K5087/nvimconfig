@@ -1,3 +1,12 @@
+-- 退出快捷键
+vim.api.nvim_create_user_command("Quit", function()
+    vim.cmd([[ wall | if &buftype == 'quickfix' | cclose | elseif &buftype == 'prompt' | quit! | else | quit | endif ]],
+        { desc = "quit command" })
+end, { desc = "Quit current window" })
+vim.keymap.set("n", "<leader>q", "<cmd>Quit<CR>", { silent = true })
+vim.keymap.set("v", "<leader>q", "<Esc>", { silent = true })
+vim.keymap.set("n", "<leader>Q", "<cmd>Quit<CR>", { silent = true, noremap = true })
+
 -- 撤销快捷键
 vim.keymap.set({ "n", "i", "v" }, "<C-z>", "<Esc>:u<CR>", { desc = "revocation input", silent = true })
 
@@ -8,6 +17,7 @@ vim.keymap.set(
     "(v:count == 0 || v:count == 1 ? '^^' : '^^' . (v:count - 1) . 'l')",
     { silent = true, expr = true }
 )
+
 vim.keymap.set(
     { "v", "n" },
     "gl",
@@ -15,11 +25,6 @@ vim.keymap.set(
     { silent = true, expr = true }
 )
 vim.keymap.set({ "v", "n", "i" }, "<F4>", "<cmd>wa<CR>", { desc = "save buffer" })
-
--- 格式化代码
-vim.keymap.set({ "v", "n" }, "g=", function()
-    vim.lsp.buf.format()
-end)
 
 -- 移动选中行
 vim.keymap.set("n", "<A-j>", "<cmd>m .+1<CR>==", { silent = true, desc = "Move line down" })

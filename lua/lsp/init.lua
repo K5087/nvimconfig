@@ -1,9 +1,11 @@
 require("lsp.option")
 require("lsp.mapping")
-if vim.fn.executable("lua-language_server") then
-    vim.lsp.enable("lua_ls")
+
+local function check_enable(bins,config_name)
+    if vim.fn.executable(bins) ==1 then
+        vim.lsp.enable(config_name)
+    end
 end
 
-if vim.fn.executable("clangd") then
-    vim.lsp.enable("clangd")
-end
+check_enable("lua-languagte-server","lua_ls")
+check_enable("clangd","clangd")

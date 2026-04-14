@@ -1,23 +1,22 @@
 return {
-    cmd = { 'lua-language-server' },
+    cmd = { "lua-language-server" },
 
-    filetypes = { 'lua' },
+    filetypes = { "lua" },
 
     root_markers = {
-        { '.luarc.json', '.luarc.jsonc' },
-        '.git',
+        { ".luarc.json", ".luarc.jsonc" },
+        ".git",
     },
 
     settings = {
         Lua = {
             runtime = {
-                version = 'LuaJIT',
+                version = "LuaJIT",
             },
             telemetry = {
                 enable = false,
-            }
-
-        }
+            },
+        },
     },
     on_attach = require("lsp.common").on_attach,
 }

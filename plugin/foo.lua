@@ -1,1 +1,1 @@
-vim.print("hello,world!")
+vim.print(vim.treesitter.language._complete())
