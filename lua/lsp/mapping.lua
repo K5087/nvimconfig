@@ -17,7 +17,7 @@ vim.keymap.set({ "n", "i", "v" }, "<A-d>", vim.lsp.buf.definition, { desc = "def
 vim.keymap.set({ "n", "i", "v" }, "<A-h>l", vim.lsp.buf.document_highlight, { desc = "document_highlight" })
 -- gO
 vim.keymap.set({ "n", "i", "v" }, "<A-s>d", vim.lsp.buf.document_symbol, { desc = "document_symbol" })
-vim.keymap.set({ "n", "i", "v" }, "g=", vim.lsp.buf.format, { desc = "fortmat" })
+vim.keymap.set({ "n", "i", "v" }, "<A-=>", vim.lsp.buf.format, { desc = "fortmat" })
 -- gri
 vim.keymap.set({ "n", "i", "v" }, "<A-i>", vim.lsp.buf.implementation, { desc = "implementation" })
 

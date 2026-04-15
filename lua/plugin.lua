@@ -12,3 +12,6 @@ require("plugins.hop")
 
 -- 树状图解析器安装.更新和删除
 require("plugins.nvim-treesitter")
+
+-- 美化主题
+require("plugins.zephyr-nvim")

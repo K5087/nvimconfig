@@ -18,5 +18,8 @@ return {
             },
         },
     },
-    on_attach = require("lsp.common").on_attach,
+    on_attach = function(client, bufnr)
+        client.server_capabilities.documentFormattingProvider = false
+        require("lsp.common").on_attach(client, bufnr)
+    end,
 }
