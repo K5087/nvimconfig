@@ -3,7 +3,7 @@ vim.api.nvim_create_user_command("Quit", function()
 	vim.cmd("wall")
 	local cmd = "quit"
 	if vim.bo.buftype == "quickfix" then
-		if vim.fn.getloclist(0, { wind = 0 }).wind ~= 0 then
+		if vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 then
 			cmd = "lclose"
 		else
 			cmd = "cclose"

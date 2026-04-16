@@ -1,25 +1,28 @@
 return {
-    cmd = { "lua-language-server" },
+	cmd = { "lua-language-server" },
 
-    filetypes = { "lua" },
+	filetypes = { "lua" },
 
-    root_markers = {
-        { ".luarc.json", ".luarc.jsonc" },
-        ".git",
-    },
+	root_markers = {
+		{ ".luarc.json", ".luarc.jsonc" },
+		".git",
+	},
 
-    settings = {
-        Lua = {
-            runtime = {
-                version = "LuaJIT",
-            },
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
-    on_attach = function(client, bufnr)
-        client.server_capabilities.documentFormattingProvider = false
-        require("lsp.common").on_attach(client, bufnr)
-    end,
+	settings = {
+		Lua = {
+			runtime = {
+				version = "LuaJIT",
+			},
+			telemetry = {
+				enable = false,
+			},
+			completion = {
+				callSnippet = "Replace",
+			},
+		},
+	},
+	on_attach = function(client, bufnr)
+		client.server_capabilities.documentFormattingProvider = false
+		require("lsp.common").on_attach(client, bufnr)
+	end,
 }
