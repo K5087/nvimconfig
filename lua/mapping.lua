@@ -1,10 +1,21 @@
 -- 退出快捷键
 vim.api.nvim_create_user_command("Quit", function()
-	vim.cmd(
-		[[ wall | if &buftype == 'quickfix' | cclose | elseif &buftype == 'prompt' | quit! | else | quit | endif ]],
-		{ desc = "quit command" }
-	)
+	vim.cmd("wall")
+	local cmd = "quit"
+	if vim.bo.buftype == "quickfix" then
+		if vim.fn.getloclist(0, { wind = 0 }).wind ~= 0 then
+			cmd = "lclose"
+		else
+			cmd = "cclose"
+		end
+	elseif vim.bo.buftype == "prompt" then
+		cmd = "quit!"
+	else
+		cmd = "quit"
+	end
+	vim.cmd(cmd)
 end, { desc = "Quit current window" })
+
 vim.keymap.set("n", "<leader>q", "<cmd>Quit<CR>", { silent = true })
 vim.keymap.set("v", "<leader>q", "<Esc>", { silent = true })
 vim.keymap.set("n", "<leader>Q", "<cmd>Quit<CR>", { silent = true, noremap = true })
