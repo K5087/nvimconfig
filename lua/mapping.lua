@@ -23,20 +23,7 @@ vim.keymap.set("n", "<leader>Q", "<cmd>Quit<CR>", { silent = true, noremap = tru
 -- 撤销快捷键
 vim.keymap.set({ "n", "i", "v" }, "<C-z>", "<Esc>:u<CR>", { desc = "revocation input", silent = true })
 
--- 跳转行开头和结尾
-vim.keymap.set(
-	{ "v", "n" },
-	"gh",
-	"(v:count == 0 || v:count == 1 ? '^^' : '^^' . (v:count - 1) . 'l')",
-	{ silent = true, expr = true }
-)
-
-vim.keymap.set(
-	{ "v", "n" },
-	"gl",
-	"(v:count == 0 || v:count == 1 ? '^$' : '^$' . (v:count - 1) . 'h')",
-	{ silent = true, expr = true }
-)
+-- 保存
 vim.keymap.set({ "v", "n", "i" }, "<F4>", "<cmd>wa<CR>", { desc = "save buffer" })
 
 -- 移动选中行

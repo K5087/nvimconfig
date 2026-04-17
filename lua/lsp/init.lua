@@ -1,5 +1,6 @@
 require("lsp.option")
 require("lsp.mapping")
+require("lsp.command")
 
 local function check_enable(bin, config_name)
 	if vim.fn.executable(bin) == 1 then

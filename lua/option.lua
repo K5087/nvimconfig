@@ -32,3 +32,8 @@ vim.opt.smartcase = true
 
 -- 将vim设置为24位颜色
 vim.opt.termguicolors = true
+
+-- 将shell设置为nushell
+if vim.fn.executable("nu") then
+	vim.opt.shell = "nu"
+end
