@@ -34,4 +34,4 @@ vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { silent = true, desc = "Move s
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { silent = true, desc = "Move selection up" })
 
 -- 打开文件浏览器
-vim.keymap.set({ "n", "v", "i", "t" }, "<C-Tab>", "<cmd>Ex<CR>", { desc = "open file explore" })
+vim.keymap.set({ "n", "v", "t" }, "<leader>t", "<cmd>Ex<CR>", { desc = "open file explore" })
