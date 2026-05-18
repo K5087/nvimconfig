@@ -6,7 +6,7 @@ return {
 		render = "minimal",
 		minimum_width = 50,
 		max_width = 100,
-		timeout = 2000,
+		timeout = 5000,
 		stages = "static",
 	},
 	-- config = function()
