@@ -1,9 +1,0 @@
-[
-  {
-    "name": "clangd 21.1.8",
-    "compilers": {
-      "C": "clang.exe",
-      "CXX": "clang++.exe"
-    }
-  }
-]

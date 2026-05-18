@@ -1,0 +1,9 @@
+[
+    {
+        "name": "clang",
+        "compilers": {
+            "C": "clang.exe",
+            "CXX": "clang++.exe"
+        }
+    }
+]

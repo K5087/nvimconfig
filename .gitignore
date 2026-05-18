@@ -1,3 +1,7 @@
+# lazy 的插件版本文件
 lazy-lock.json
+
 .luarc.json
 
+# 个人其他配置存放位置
+plugin/*
