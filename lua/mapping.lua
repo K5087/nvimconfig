@@ -34,4 +34,10 @@ vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { silent = true, desc = "Move s
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { silent = true, desc = "Move selection up" })
 
 -- 打开文件浏览器
-vim.keymap.set({ "n", "v", "t" }, "<leader>t", "<cmd>Ex<CR>", { desc = "open file explore" })
+vim.keymap.set({ "n", "v", "t" }, "<leader>e", "<cmd>Ex<CR>", { desc = "open file explore" })
+
+-- 打开关闭terminal
+vim.keymap.set({ "n", "v" }, "<leader>t", "<cmd>terminal<CR>", { desc = "open terminal" })
+vim.keymap.set("t", "<leader>t", [[<C-\><C-n>:close<CR>]], {
+	desc = "close terminal",
+})

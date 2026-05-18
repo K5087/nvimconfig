@@ -37,3 +37,7 @@ vim.opt.termguicolors = true
 if vim.fn.executable("nu") then
 	vim.opt.shell = "nu"
 end
+
+-- netrw设置
+-- 隐藏以点开头的文件
+vim.g.netrw_list_hide = [[\(^\|\s\s\)\zs\.\S\+]]
