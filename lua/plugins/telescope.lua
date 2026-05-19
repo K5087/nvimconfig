@@ -72,7 +72,7 @@ return {
 		-- 查找本文件中所有静态分析报错
 		vim.keymap.set("n", "<leader>a", "<cmd>Telescope diagnostics<CR>")
 		-- 查找本文件中所有动态编译报错
-		vim.keymap.set("n", "<leader>q", "<cmd>Telescope quickfix<CR>")
+		-- vim.keymap.set("n", "<leader>q", "<cmd>Telescope quickfix<CR>")
 		-- 查看所有 Vim 通知
 		vim.keymap.set("n", "<leader>n", "<cmd>Telescope notify<CR>")
 		-- 模糊查询

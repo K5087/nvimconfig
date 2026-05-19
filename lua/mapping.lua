@@ -15,9 +15,9 @@ vim.api.nvim_create_user_command("Quit", function()
 	end
 	vim.cmd(cmd)
 end, { desc = "Quit current window" })
-vim.keymap.set("n", "q", "<cmd>Quit<CR>", { silent = true })
-vim.keymap.set("v", "q", "<Esc>", { silent = true })
-vim.keymap.set("n", "Q", "q", { silent = true, noremap = true })
+vim.keymap.set("n", "<leader>q", "<cmd>Quit<CR>", { silent = true })
+vim.keymap.set("v", "<leader>q", "<Esc>", { silent = true })
+vim.keymap.set("n", "<leader>Q", "q", { silent = true, noremap = true })
 
 -- 撤销快捷键
 vim.keymap.set({ "n", "i", "v" }, "<C-z>", "<Esc>:u<CR>", { silent = true })

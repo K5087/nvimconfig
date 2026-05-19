@@ -6,22 +6,97 @@ return {
 	event = "User CMakeProject",
 	config = function(_, opt)
 		local dap = require("dap")
-		dap.adapters.codelldb = {
+		-- dap.adapters.codelldb = {
+		-- 	type = "executable",
+		-- 	command = "codelldb",
+		-- }
+		local utils = require("core.utils")
+		dap.adapters.cppdbg = {
+			id = "cppdbg",
 			type = "executable",
-			command = "codelldb",
+			command = "OpenDebugAD7",
+			options = utils.is_windows and {
+				detached = false,
+			} or nil,
 		}
-		dap.configurations.cpp = {
+		dap.adapters.gdb = {
+			type = "executable",
+			command = "gdb",
+			args = { "--interpreter=dap", "--eval-command", "set print pretty on" },
+		}
+		local windows = {
 			{
 				name = "Launch file",
-				type = "codelldb",
+				type = "cppdbg",
+				request = "launch",
+				program = function()
+					return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+				end,
+				cwd = "${workspaceFolder}",
+				stopAtEntry = false,
+				MIMode = "gdb",
+				miDebuggerPath = vim.fn.exepath("gdb"),
+
+				setupCommands = {
+					{
+						text = "-enable-pretty-printing",
+						description = "enable pretty printing",
+						ignoreFailures = false,
+					},
+				},
+			},
+			{
+				name = "Attach to gdbserver :1234",
+				type = "cppdbg",
+				request = "launch",
+				MIMode = "gdb",
+				miDebuggerServerAddress = "localhost:1234",
+				miDebuggerPath = "/usr/bin/gdb",
+				cwd = "${workspaceFolder}",
+				program = function()
+					return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+				end,
+			},
+		}
+
+		local linux = {
+			{
+				name = "Launch",
+				type = "gdb",
 				request = "launch",
 				program = function()
 					return vim.fn.input("path to executable: ", vim.fn.getcwd() .. "/", "file")
 				end,
+				args = {},
 				cwd = "${workspaceFolder}",
-				stopOnEntry = false,
+				stopAtBeginningOfMainSubprogram = false,
+			},
+			{
+				name = "Select and attach to process",
+				type = "gdb",
+				request = "attach",
+				program = function()
+					return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+				end,
+				pid = function()
+					local name = vim.fn.input("Executable name (filter): ")
+					return require("dap.utils").pick_process({ filter = name })
+				end,
+				cwd = "${workspaceFolder}",
+			},
+			{
+				name = "Attach to gdbserver :1234",
+				type = "gdb",
+				request = "attach",
+				target = "localhost:1234",
+				program = function()
+					return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+				end,
+				cwd = "${workspaceFolder}",
 			},
 		}
+
+		dap.configurations.cpp = windows
 		dap.configurations.c = dap.configurations.cpp
 
 		-- 调试快捷键
@@ -45,27 +120,8 @@ return {
 
 		local dapui = require("dapui")
 
-		local function startdebug()
-			dapui.open()
-
-			vim.keymap.set({ "v", "n", "i", "t" }, "<Up>", "<cmd>DapRestartFrame<CR>", { silent = true })
-			vim.keymap.set({ "v", "n", "i", "t" }, "<Down>", "<cmd>DapStepOver<CR>", { silent = true })
-			vim.keymap.set({ "v", "n", "i", "t" }, "<Right>", "<cmd>DapStepInto<CR>", { silent = true })
-			vim.keymap.set({ "v", "n", "i", "t" }, "<Left>", "<cmd>DapStepOut<CR>", { silent = true })
-		end
-
-		local function enddebug()
-			pcall(vim.keymap.del, { "v", "n", "i", "t" }, "<Up>")
-			pcall(vim.keymap.del, { "v", "n", "i", "t" }, "<Down>")
-			pcall(vim.keymap.del, { "v", "n", "i", "t" }, "<Left>")
-			pcall(vim.keymap.del, { "v", "n", "i", "t" }, "<Right>")
-
-			dapui.close()
-		end
-
-		dap.listeners.after.event_initialized.dapui_config = startdebug
-		dap.listeners.before.event_terminated.dapui_config = enddebug
-		dap.listeners.before.event_exited.dapui_config = enddebug
+		dap.listeners.after.event_initialized.dapui_config = dapui.open
+		dap.listeners.before.event_terminated.dapui_config = dapui.close
 
 		vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
 		vim.fn.sign_define("DapBreakpointCondition", { text = "⭕", texthl = "", linehl = "", numhl = "" })

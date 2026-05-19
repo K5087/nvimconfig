@@ -33,11 +33,11 @@ return {
 		},
 		cmake_dap_configuration = { -- debug settings for cmake
 			name = "cpp",
-			type = "codelldb",
+			type = "cppdbg",
 			request = "launch",
-			stopOnEntry = false,
-			runInTerminal = true,
-			console = "integratedTerminal",
+			-- stopOnEntry = false,
+			-- runInTerminal = false,
+			-- console = "integratedTerminal",
 		},
 		cmake_executor = { -- executor to use
 			name = "quickfix", -- name of the executor
@@ -136,8 +136,8 @@ return {
 			},
 		},
 		cmake_notifications = {
-			runner = { enabled = true },
-			executor = { enabled = true },
+			runner = { enabled = false },
+			executor = { enabled = false },
 			spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }, -- icons used for progress display
 			refresh_rate_ms = 100, -- how often to iterate icons
 		},
