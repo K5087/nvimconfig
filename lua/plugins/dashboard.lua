@@ -43,7 +43,7 @@ return {
 					group = "Number",
 					action = function()
 						-- 启用vimlua的额外路径解析
-						vim.cmd("VimDev")
+						-- vim.cmd("VimDev")
 
 						local path = vim.fn.stdpath("config")
 						vim.fn.chdir(path)

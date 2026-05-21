@@ -21,3 +21,18 @@ vim.api.nvim_create_user_command("LuaWork", function()
 	vim.lsp.enable("lua_helper")
 	vim.notify("enable luahelper")
 end, { desc = "for moke's work", nargs = 0 })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = {
+		"help",
+		"lspinfo",
+		"checkhealth",
+		"qf",
+		"grug-far",
+	},
+	callback = function(event)
+		vim.keymap.set("n", "q", function()
+			vim.cmd("close")
+		end, { buffer = event.buf, silent = true })
+	end,
+})

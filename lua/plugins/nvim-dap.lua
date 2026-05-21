@@ -4,62 +4,22 @@ return {
 		"rcarriga/nvim-dap-ui",
 	},
 	event = "User CMakeProject",
-	config = function(_, opt)
+	config = function()
 		local dap = require("dap")
-		-- dap.adapters.codelldb = {
-		-- 	type = "executable",
-		-- 	command = "codelldb",
-		-- }
 		local utils = require("core.utils")
-		dap.adapters.cppdbg = {
-			id = "cppdbg",
-			type = "executable",
-			command = "OpenDebugAD7",
-			options = utils.is_windows and {
-				detached = false,
-			} or nil,
-		}
+
 		dap.adapters.gdb = {
 			type = "executable",
 			command = "gdb",
 			args = { "--interpreter=dap", "--eval-command", "set print pretty on" },
-		}
-		local windows = {
-			{
-				name = "Launch file",
-				type = "cppdbg",
-				request = "launch",
-				program = function()
-					return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-				end,
-				cwd = "${workspaceFolder}",
-				stopAtEntry = false,
-				MIMode = "gdb",
-				miDebuggerPath = vim.fn.exepath("gdb"),
-
-				setupCommands = {
-					{
-						text = "-enable-pretty-printing",
-						description = "enable pretty printing",
-						ignoreFailures = false,
-					},
-				},
+			options = {
+				detached = not utils.is_windows,
 			},
-			{
-				name = "Attach to gdbserver :1234",
-				type = "cppdbg",
-				request = "launch",
-				MIMode = "gdb",
-				miDebuggerServerAddress = "localhost:1234",
-				miDebuggerPath = "/usr/bin/gdb",
-				cwd = "${workspaceFolder}",
-				program = function()
-					return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-				end,
-			},
+			runInTerminal = true,
+			externalConsole = true,
+			console = "integratedTerminal",
 		}
-
-		local linux = {
+		local gdb = {
 			{
 				name = "Launch",
 				type = "gdb",
@@ -96,7 +56,7 @@ return {
 			},
 		}
 
-		dap.configurations.cpp = windows
+		dap.configurations.cpp = gdb
 		dap.configurations.c = dap.configurations.cpp
 
 		-- 调试快捷键
@@ -119,9 +79,9 @@ return {
 		end, { desc = "debug or continue" })
 
 		local dapui = require("dapui")
-
 		dap.listeners.after.event_initialized.dapui_config = dapui.open
-		dap.listeners.before.event_terminated.dapui_config = dapui.close
+
+		dap.listeners.after.event_terminated.dapui_config = dapui.close
 
 		vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "", linehl = "", numhl = "" })
 		vim.fn.sign_define("DapBreakpointCondition", { text = "⭕", texthl = "", linehl = "", numhl = "" })

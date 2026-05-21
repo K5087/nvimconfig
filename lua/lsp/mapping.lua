@@ -53,6 +53,9 @@ vim.keymap.set({ "n", "i", "v" }, "<A-s>w", vim.lsp.buf.workspace_symbol, { desc
 -- K
 -- vim.keymap.set({ "n", "i", "v" }, "<A-k>", vim.lsp.buf.hover, { desc = "hover" })
 
+-- diagnostic
+vim.keymap.set({ "n", "i", "v" }, "<A-e>", vim.diagnostic.open_float, { desc = "workspace_symbol" })
+
 -- -- 查找符号定义
 -- vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "Goto definition" })
 -- -- 查找符号声明

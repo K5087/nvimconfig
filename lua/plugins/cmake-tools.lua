@@ -33,11 +33,11 @@ return {
 		},
 		cmake_dap_configuration = { -- debug settings for cmake
 			name = "cpp",
-			type = "cppdbg",
+			type = "gdb",
 			request = "launch",
-			-- stopOnEntry = false,
-			-- runInTerminal = false,
-			-- console = "integratedTerminal",
+			stopOnEntry = false,
+			runInTerminal = true,
+			console = "integratedTerminal",
 		},
 		cmake_executor = { -- executor to use
 			name = "quickfix", -- name of the executor

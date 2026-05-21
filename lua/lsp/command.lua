@@ -5,9 +5,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		local bufnr = args.buf
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		-- enable auto completion
-		vim.lsp.completion.enable(true, client.id, bufnr, {
-			autotrigger = true,
-		})
+		-- vim.lsp.completion.enable(true, client.id, bufnr, {
+		-- 	autotrigger = true,
+		-- })
 
 		-- create auto format command
 		if client.server_capabilities.documentFormattingProvider then

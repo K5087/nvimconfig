@@ -6,44 +6,17 @@ return {
 	},
 	event = "InsertEnter",
 	opts = {
+		keymap = { preset = "super-tab" },
+		appearance = {
+			nerd_font_variant = "mono",
+			use_nvim_cmp_as_default = true,
+		},
 		completion = {
-			documentation = {
-				auto_show = true,
-			},
+			documentation = { auto_show = false },
 		},
-		keymap = {
-			preset = "super-tab",
-		},
-
 		sources = {
-			default = { "lsp", "buffer", "path", "snippets" },
-			-- providers = {
-			-- 	lazydev = {
-			-- 		name = "LazyDev",
-			-- 		module = "lazydev.integrations.blink",
-			-- 		score_offset = 100,
-			-- 	},
-			-- },
+			default = { "lsp", "path", "snippets", "buffer" },
 		},
-		cmdline = {
-			sources = function()
-				local cmd_type = vim.fn.getcmdtype()
-				if cmd_type == "/" then
-					return { "buffer" }
-				end
-				if cmd_type == ":" then
-					return { "cmdline" }
-				end
-				return {}
-			end,
-			keymap = {
-				preset = "super-tab",
-			},
-			completion = {
-				menu = {
-					auto_show = true,
-				},
-			},
-		},
+		fuzzy = { implementation = "prefer_rust_with_warning" },
 	},
 }

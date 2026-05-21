@@ -36,6 +36,9 @@ return {
 				},
 			},
 		},
+		git = {
+			timeout = 500,
+		},
 	},
 	keys = {
 		{ "<leader>e", "<cmd>NvimTreeFindFileToggle<CR>", mode = { "n", "v", "t" }, silent = true },
