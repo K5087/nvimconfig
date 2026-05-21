@@ -5,4 +5,4 @@ require("plugin")
 require("command")
 
 require("lsp")
--- require("core.utils")
+require("vim._core.ui2").enable()
