@@ -1,6 +1,3 @@
--- lsp基本配置
-require("plugins.nvim-lspconfig")
-
 -- 自动添加成对符号
 require("plugins.nvim-autopairs")
 

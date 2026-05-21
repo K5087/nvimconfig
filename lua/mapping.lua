@@ -1,37 +1,26 @@
--- 退出快捷键
-vim.api.nvim_create_user_command("Quit", function()
-	vim.cmd("wall")
-	local cmd = "quit"
-	if vim.bo.buftype == "quickfix" then
-		if vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 then
-			cmd = "lclose"
-		else
-			cmd = "cclose"
-		end
-	elseif vim.bo.buftype == "prompt" then
-		cmd = "quit!"
-	else
-		cmd = "quit"
-	end
-	vim.cmd(cmd)
-end, { desc = "Quit current window" })
-
-vim.keymap.set("n", "<leader>q", "<cmd>Quit<CR>", { silent = true })
-vim.keymap.set("v", "<leader>q", "<Esc>", { silent = true })
-vim.keymap.set("n", "<leader>Q", "<cmd>Quit<CR>", { silent = true, noremap = true })
+local set = vim.keymap.set
 
 -- 撤销快捷键
-vim.keymap.set({ "n", "i", "v" }, "<C-z>", "<Esc>:u<CR>", { desc = "revocation input", silent = true })
+set({ "n", "i", "v" }, "<C-z>", "<Esc>:u<CR>", { silent = true })
 
--- 保存
-vim.keymap.set({ "v", "n", "i" }, "<F4>", "<cmd>wa<CR>", { desc = "save buffer" })
+set({ "v", "n", "i" }, "<F4>", "<cmd>wa<CR>", { desc = "save buffer" })
+set({ "v", "n", "i" }, "<F6>", "<cmd>cclose | Trouble qflist toggle<CR>")
+
+-- 头文件/源文件跳转
+set({ "v", "n" }, "<leader><Tab>", "<cmd>LspClangdSwitchSourceHeader<CR>", { silent = true })
+set({ "v", "n" }, "<leader>v<Tab>", "<cmd>vsplit | LspClangdSwitchSourceHeader<CR>", { silent = true })
+set({ "v", "n" }, "<leader>h<Tab>", "<cmd>split | LspClangdSwitchSourceHeader<CR>", { silent = true })
 
 -- 移动选中行
-vim.keymap.set("n", "<A-j>", "<cmd>m .+1<CR>==", { silent = true, desc = "Move line down" })
-vim.keymap.set("n", "<A-k>", "<cmd>m .-2<CR>==", { silent = true, desc = "Move line up" })
+set("n", "<A-j>", "<cmd>m .+1<CR>==", { silent = true, desc = "Move line down" })
+set("n", "<A-k>", "<cmd>m .-2<CR>==", { silent = true, desc = "Move line up" })
 
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { silent = true, desc = "Move selection down" })
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { silent = true, desc = "Move selection up" })
+set("v", "<A-j>", ":m '>+1<CR>gv=gv", { silent = true, desc = "Move selection down" })
+set("v", "<A-k>", ":m '<-2<CR>gv=gv", { silent = true, desc = "Move selection up" })
+
+-- 快速跳转行开头和结尾
+set("n", "gl", "$", { desc = "Go to end of line" })
+set("n", "gh", "^", { desc = "Go to start of line" })
 
 -- 打开文件浏览器
 vim.keymap.set({ "n", "v", "t" }, "<leader>e", "<cmd>Ex<CR>", { desc = "open file explore" })
