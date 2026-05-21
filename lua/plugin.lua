@@ -12,3 +12,6 @@ require("plugins.nvim-treesitter")
 
 -- 美化主题
 require("plugins.zephyr-nvim")
+
+-- snacks
+require("plugins.snacks")
