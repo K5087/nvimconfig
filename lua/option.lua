@@ -1,7 +1,7 @@
 local opt = vim.opt
 
 -- leader键
-vim.g.mapleader = ","
+vim.g.mapleader = " "
 
 -- 行号
 opt.number = true
@@ -56,9 +56,9 @@ opt.fillchars = {
 opt.termguicolors = true
 
 -- 将shell设置为nushell
-if vim.fn.executable("nu") then
-	opt.shell = "nu"
-	opt.shellcmdflag = "-c"
-	opt.shellquote = ""
-	opt.shellxquote = ""
-end
+-- if vim.fn.executable("nu") then
+-- 	opt.shell = "nu"
+-- 	opt.shellcmdflag = "-c"
+-- 	opt.shellquote = ""
+-- 	opt.shellxquote = ""
+-- end

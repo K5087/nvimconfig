@@ -1,23 +1,22 @@
 local set = vim.keymap.set
 -- 退出快捷键
--- vim.api.nvim_create_user_command("Quit", function()
--- 	vim.cmd("wall")
--- 	local cmd = "quit"
--- 	if vim.bo.buftype == "quickfix" then
--- 		if vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 then
--- 			cmd = "lclose"
--- 		else
--- 			cmd = "cclose"
--- 		end
--- 	elseif vim.bo.buftype == "prompt" then
--- 		cmd = "quit!"
--- 	else
--- 		cmd = "quit"
--- 	end
--- 	vim.cmd(cmd)
--- end, { desc = "Quit current window" })
---
--- set("n", "<leader>q", "<cmd>Quit<CR>", { silent = true })
+vim.api.nvim_create_user_command("Quit", function()
+	vim.cmd("wall")
+	local cmd = "quit"
+	if vim.bo.buftype == "quickfix" then
+		if vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 then
+			cmd = "lclose"
+		else
+			cmd = "cclose"
+		end
+	elseif vim.bo.buftype == "prompt" then
+		cmd = "quit!"
+	else
+		cmd = "quit"
+	end
+	vim.cmd(cmd)
+end, { desc = "Quit current window" })
+set("n", "<leader>q", "<cmd>Quit<CR>", { silent = true })
 -- set("v", "<leader>q", "<Esc>", { silent = true })
 -- set("n", "<leader>Q", "q", { silent = true, noremap = true })
 
@@ -42,6 +41,3 @@ set("v", "<A-k>", ":m '<-2<CR>gv=gv", { silent = true, desc = "Move selection up
 -- 快速跳转行开头和结尾
 set("n", "gl", "$", { desc = "Go to end of line" })
 set("n", "gh", "^", { desc = "Go to start of line" })
-
--- 在可视模式粘贴时不会把选中区域拷贝到寄存器
-set("v", "p", '"_dP', { desc = "paste not infact register" })
