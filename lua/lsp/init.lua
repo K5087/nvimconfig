@@ -21,3 +21,6 @@ check_enable("rumdl")
 
 -- json,js,css,ts
 check_enable("biome")
+
+-- query(.scm)
+check_enable("ts_query_ls")

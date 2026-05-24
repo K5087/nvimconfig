@@ -1,7 +1,6 @@
 return {
 	"nvimdev/lspsaga.nvim",
 	cmd = "Lspsaga",
-	enabled = false,
 	opts = {
 		finder = {
 			keys = {
