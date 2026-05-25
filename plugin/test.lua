@@ -1,5 +1,4 @@
-vim.opt.rtp:append(vim.fn.stdpath("config") .. "/cpptools.nvim")
-vim.api.nvim_create_user_command("Moke", require("cpptools").check_func_sign, { desc = "test functions" })
+vim.api.nvim_create_user_command("Moke", require("cfcc").check_func_sign, { desc = "test functions" })
 local function Test()
 	local params = vim.lsp.util.make_position_params(0, "utf-16")
 
