@@ -1,7 +1,7 @@
 (function_declarator
   declarator: [
-    (identifier) @name
-    (field_identifier) @name
-    (qualified_identifier) @name
+    (identifier)
+    (field_identifier)
+    (qualified_identifier)
   ]
   parameters: (parameter_list) @param) @func

@@ -50,6 +50,8 @@ function M.GetFunctionSign(node)
 	end
 
 	info.func = fnode
+	info.name = info.func:field("declarator")[1]
+	info.params = M.get_function_param_list(info.func)
 	local type = info.func:type()
 
 	---@type TSNode?
@@ -60,6 +62,8 @@ function M.GetFunctionSign(node)
 			info.is_declarator = false
 		end
 		if type == "declaration" or type == "field_declaration" or type == "function_definition" then
+			for child in rnode:iter_children() do
+			end
 			info.full = rnode
 			info.type = rnode:field("type")[1]
 			rnode = rnode:parent()
@@ -87,31 +91,32 @@ end
 ---search buffer all function name same
 ---@param bufnr integer
 ---@param info NodeInfo
----@return TSNode[]
+---@return TSNode[],integer
 function M.search_function(bufnr, info)
+	local full_match_id = 0
 	local query = vim.treesitter.query.get("cpp", "function_decls")
 	if not query then
 		vim.notify("can not find function_decl query")
-		return {}
+		return {}, full_match_id
 	end
 	local parser = vim.treesitter.get_parser(bufnr, "cpp")
 
 	if not parser then
 		vim.notify("have not find cpp parser")
-		return {}
+		return {}, full_match_id
 	end
 
 	local tree = parser:parse()[1]
 
 	if not tree then
-		return {}
+		vim.notify("have not find parse tree")
+		return {}, full_match_id
 	end
 	local root = tree:root()
 
 	local func_nodes = {}
 	for _, match in query:iter_matches(root, bufnr, 0, -1) do
 		local decl_node
-		local name_node
 
 		for id, nodes in ipairs(match) do
 			local cap = query.captures[id]
@@ -119,32 +124,31 @@ function M.search_function(bufnr, info)
 
 			if cap == "func" then
 				decl_node = node
-			elseif cap == "name" then
-				name_node = node
 			end
 		end
 
 		if decl_node then
-			-- local match_info = M.is_function_equal(info, { bufnr = bufnr, node = decl_node })
-			-- if match_info.name == true then
-			-- 	table.insert(func_nodes, decl_node)
-			-- end
-
-			table.insert(func_nodes, decl_node)
+			local match_info = M.is_function_equal(info, { bufnr = bufnr, node = decl_node })
+			if match_info.name == true then
+				table.insert(func_nodes, decl_node)
+			end
+			if match_info.params == true then
+				full_match_id = #func_nodes
+			end
 		end
 	end
-	return func_nodes
+	return func_nodes, full_match_id
 end
 
 ---Get Function Parameter List Node
 ---@param node TSNode function_declarator
 ---@return TSNode[]
-local function get_function_param_list(node)
+function M.get_function_param_list(node)
 	local param_node = node:field("parameters")[1]
 
 	local params = {}
 	for child in param_node:iter_children() do
-		table.insert(params, child:field("type")[1])
+		table.insert(params, child)
 	end
 	return params
 end
@@ -179,8 +183,8 @@ function M.is_function_equal(info1, info2)
 		match_info.name = true
 	end
 
-	local params1 = get_function_param_list(info1.node)
-	local params2 = get_function_param_list(info2.node)
+	local params1 = M.get_function_param_list(info1.node)
+	local params2 = M.get_function_param_list(info2.node)
 
 	if #params1 ~= #params2 then
 		return match_info
@@ -208,4 +212,139 @@ function M.is_function_equal(info1, info2)
 	return match_info
 end
 
+--TODD: maybe hvae bug in CRLF text
+local function pos_to_offset(bufnr, root, row, col)
+	local rs, cs = root:start()
+	local lines = vim.api.nvim_buf_get_lines(bufnr, rs, row + 1, false)
+
+	local offset = 0
+
+	for i, line in ipairs(lines) do
+		if i == 1 and #lines == 1 then
+			offset = offset + (col - cs)
+		elseif i == 1 then
+			offset = offset + (#line - cs) + 1
+		elseif i == #lines then
+			offset = offset + col
+		else
+			offset = offset + #line + 1
+		end
+	end
+
+	return offset
+end
+
+---@class DeleteParamHelp which nodes that between last and end should be delete (just for lsp help)
+---@field last TSNode  last keep node
+---@field final TSNode end node
+
+---get a array that all optional_parameter_declaration node default should delete
+---@param bufnr integer
+---@param full TSNode  declaration / field_declaration / function_definition
+---@param func TSNode function_declarator
+function M.get_del_optparam_ranges(bufnr, full, func)
+	local optional_param_nodes = {}
+	local query = vim.treesitter.query.get("cpp", "optional_parameter_declaration")
+	if not query then
+		vim.notify("can not find optional_parameter_declaration query")
+		return {}
+	end
+	for _, match in query:iter_matches(full, bufnr, 0, -1) do
+		for id, nodes in ipairs(match) do
+			local param_node = nil
+			local cap = query.captures[id]
+			if cap == "param" then
+				param.node = nodes[1]
+			elseif cap == "default_value" then
+				param.default_value = nodes[1]
+			end
+		end
+		---@type DeleteParamHelp
+		local param = {}
+		table.insert(optional_param_nodes, param)
+	end
+	-- table.insert(optional_param_nodes, { node = func, default_value = full })
+
+	local del_ranges = {}
+	for _, nodes in ipairs(optional_param_nodes) do
+		local last_node = nil
+		for child_node in nodes.node:iter_children() do
+			if child_node:type() ~= "=" then
+				last_node = child_node
+			else
+				break
+			end
+		end
+
+		local l_srow, l_scol, l_erow, l_ecol = last_node:range()
+		local d_srow, d_scol, d_erow, d_ecol = nodes.default_value:range()
+
+		-- 0-base, but this is [s,e)
+		local s = pos_to_offset(bufnr, full, l_erow, l_ecol)
+		local e = pos_to_offset(bufnr, full, d_erow, d_ecol)
+
+		-- convert to lua 1-base,should delete [s+1,e]
+		table.insert(del_ranges, {
+			s = s + 1,
+			e = e,
+		})
+	end
+
+	-- remove function declarator end ;
+	local n_srow, n_scol, n_erow, n_ecol = full:range()
+	local f_srow, f_scol, f_erow, f_ecol = func:range()
+	local s = pos_to_offset(bufnr, full, f_erow, f_ecol)
+	local e = pos_to_offset(bufnr, full, n_erow, n_ecol)
+	table.insert(del_ranges, {
+		s = s + 1,
+		e = e,
+	})
+	return del_ranges
+end
+
+---get a array that all optional_parameter_declaration node default should delete
+---@param bufnr integer
+---@param full TSNode  declaration / field_declaration / function_definition
+---@param func TSNode function_declarator
+function M.get_del_optparam_ranges2(bufnr, full, func)
+	---@type DeleteParamHelp[]
+	local optional_param_nodes = {}
+	local query = vim.treesitter.query.get("cpp", "optional_parameter_declaration")
+	if not query then
+		vim.notify("can not find optional_parameter_declaration query")
+		return {}
+	end
+	for _, match in query:iter_matches(full, bufnr, 0, -1) do
+		---@type DeleteParamHelp
+		local param = {}
+		for id, nodes in ipairs(match) do
+			local cap = query.captures[id]
+			if cap == "param" then
+				param.final = nodes[1]
+			elseif cap == "equalss" then
+				param.last = nodes[1]
+			end
+		end
+		table.insert(optional_param_nodes, param)
+	end
+	table.insert(optional_param_nodes, { last = func, final = full })
+
+	local del_ranges = {}
+	for _, nodes in ipairs(optional_param_nodes) do
+		local l_srow, l_scol, l_erow, l_ecol = nodes.last:range()
+		local d_srow, d_scol, d_erow, d_ecol = nodes.final:range()
+
+		-- 0-base, but this is [s,e)
+		local s = pos_to_offset(bufnr, full, l_erow, l_ecol)
+		local e = pos_to_offset(bufnr, full, d_erow, d_ecol)
+
+		-- convert to lua 1-base,should delete [s+1,e]
+		table.insert(del_ranges, {
+			s = s + 1,
+			e = e,
+		})
+	end
+
+	return del_ranges
+end
 return M

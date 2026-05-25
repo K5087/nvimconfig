@@ -5,43 +5,64 @@ local ast = require("cpptools.ast")
 ---@field header integer cpp header file buffer id
 ---@field source integer cpp source file buffer id
 ---@field info FunctionInfo function ast info
----@field from integer which bufnr launch request
----@field to integer which bufnr should change
+---@field origin integer which bufnr launch request
+---@field target integer which bufnr should change
 
 ---get change param
----@param bufnr integer which bufnr requrest
+---@param origin_bufnr integer which bufnr requrest
 ---@param uri string target file path
 ---@return RequestInfo?
-local function get_sign_param(bufnr, uri)
-	local path = vim.uri_to_fname(uri)
-	local bufid = vim.fn.bufadd(path)
-	if bufid < 0 then
-		vim.notify("file" .. "not exist")
-		return nil
+local function generate_request_param(origin_bufnr, uri)
+	local is_header = M.is_header(vim.api.nvim_buf_get_name(origin_bufnr))
+	local param = {
+		origin = origin_bufnr,
+	}
+	if is_header then
+		param.header = origin_bufnr
+	else
+		param.source = origin_bufnr
 	end
-	vim.fn.bufload(bufid)
-	local is_header = M.is_header(vim.api.nvim_buf_get_name(bufnr))
 
-	local node = vim.treesitter.get_node({ bufnr = bufnr })
+	local path = vim.uri_to_fname(uri)
+	if not vim.fn.filewritable(path) then
+		if vim.fn.confirm(path .. "not exist,whether create it", "&yes\n&no") then
+			local dir = vim.fn.fnamemodify(path, ":h")
+			vim.fn.mkdir(dir, "p")
+			vim.fn.writefile({}, path)
+		else
+			return param
+		end
+	end
+	local target_bufnr = vim.fn.bufadd(path)
+	if target_bufnr < 0 then
+		vim.notify("file" .. "not exist")
+		return param
+	end
+	vim.fn.bufload(target_bufnr)
+
+	if not target_bufnr then
+		return param
+	end
+	param.target = target_bufnr
+	if is_header then
+		param.source = target_bufnr
+	else
+		param.header = target_bufnr
+	end
+
+	local node = vim.treesitter.get_node({ bufnr = origin_bufnr })
 
 	if not node then
 		vim.notify("cannot find ast node")
-		return nil
+		return param
 	end
 	local info = ast.GetFunctionSign(node)
 	if not info then
 		vim.notify("cannot find function signature")
-		return nil
+		return param
 	end
-	---@type RequestInfo
-	local params = {
-		header = is_header and bufnr or bufid,
-		source = is_header and bufid or bufnr,
-		info = info,
-		from = bufnr,
-		to = bufid,
-	}
-	return params
+	param.info = info
+	return param
 end
 
 ---check file path whether cpp header
@@ -75,9 +96,43 @@ function M.edit_target(bufnr, client, func)
 			return
 		end
 
-		local param = get_sign_param(bufnr, result)
+		local param = generate_request_param(bufnr, result)
+
 		func(param)
 	end, bufnr)
+end
+
+---generate function signature text
+---@param info FunctionInfo
+---@return string
+local function Generate_Function_Text(bufnr, info)
+	local declaration = ast.node_text(bufnr, info.full)
+	local del_ranges = ast.get_del_optparam_ranges2(bufnr, info.full, info.func)
+
+	-- delete text from line end
+	table.sort(del_ranges, function(a, b)
+		return a.s > b.s
+	end)
+
+	for _, r in ipairs(del_ranges) do
+		-- get [1,s-1]  [e+1,$]
+		declaration = declaration:sub(1, r.s - 1) .. declaration:sub(r.e + 1)
+	end
+
+	return declaration
+end
+
+---comment
+---@param info RequestInfo
+function M.generate_declarator_on_header(info)
+	local sign_text = Generate_Function_Text(info.origin, info.info)
+	vim.print(sign_text)
+end
+---comment
+---@param info RequestInfo
+function M.generate_definition_on_source(info)
+	local sign_text = Generate_Function_Text(info.origin, info.info)
+	vim.print(sign_text)
 end
 
 return M
