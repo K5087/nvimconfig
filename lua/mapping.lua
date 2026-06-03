@@ -1,7 +1,8 @@
 local set = vim.keymap.set
+set({ "n", "v" }, "<leader>q", "<cmd>q<CR>", { desc = "quit command" })
 
 -- 撤销快捷键
-set({ "n", "i", "v" }, "<C-z>", "<Esc>:u<CR>", { silent = true })
+set({ "n", "i", "v" }, "<C-z>", "<Esc>:u<CR>", { silent = true, desc = "undo command" })
 
 set({ "v", "n", "i" }, "<F4>", "<cmd>wa<CR>", { desc = "save buffer" })
 set({ "v", "n", "i" }, "<F6>", "<cmd>cclose | Trouble qflist toggle<CR>")
@@ -21,9 +22,3 @@ set("v", "<A-k>", ":m '<-2<CR>gv=gv", { silent = true, desc = "Move selection up
 -- 快速跳转行开头和结尾
 set("n", "gl", "$", { desc = "Go to end of line" })
 set("n", "gh", "^", { desc = "Go to start of line" })
-
--- 打开关闭terminal
-vim.keymap.set({ "n", "v" }, "<leader>t", "<cmd>terminal<CR>", { desc = "open terminal" })
-vim.keymap.set("t", "<leader>t", [[<C-\><C-n>:close<CR>]], {
-	desc = "close terminal",
-})
