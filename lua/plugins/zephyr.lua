@@ -9,8 +9,8 @@ return {
 		    hi NormalNC guibg=NONE ctermbg=NONE
 		    hi VertSplit guibg=NONE
 		    hi StatusLine guibg=NONE
-            hi WinBar guibg=NONE ctermbg=NONE
-            hi WinBarNC guibg=NONE ctermbg=NONE
+		          hi WinBar guibg=NONE ctermbg=NONE
+		          hi WinBarNC guibg=NONE ctermbg=NONE
 
 		]])
 	end,
