@@ -1,5 +1,8 @@
 local set = vim.keymap.set
 
+-- 退出
+set("n", "<leader>q", "<cmd>q<CR>", { silent = true })
+
 -- 撤销快捷键
 set({ "n", "i", "v" }, "<C-z>", "<Esc>:u<CR>", { silent = true })
 
