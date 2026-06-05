@@ -46,6 +46,7 @@ return {
 
 		set("n", "<Tab>", "<cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
 		set("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
+		set("n", "<leader><BS>", "<cmd>bdelete<CR>", { desc = "delete current buffer" })
 	end,
 
 	-- keys = {
@@ -53,7 +54,6 @@ return {
 	-- 	{ "<leader>p", "<cmd>BufferLineCyclePrev<CR>", mode = { "n", "v" } },
 	-- 	{ "<leader>n", "<cmd>BufferLineCycleNext<CR>", mode = { "n", "v" } },
 	-- 	-- { "<leader><Space>", "<cmd>BufferLinePick<CR>", mode = { "n", "v" } },
-	-- 	{ "<leader><BS>", "<cmd>bdelete<CR>", mode = { "n", "v" } },
 	-- 	{ "<leader>mp", "<cmd>BufferLineMovePrev<CR>", mode = { "n", "v" } },
 	-- 	{ "<leader><mn", "<cmd>BufferLineMoveNext<CR>", mode = { "n", "v" } },
 	-- 	{ "<leader><S-Tab>", "<cmd>BufferLineCloseOthers<CR>", mode = { "n", "v" } },

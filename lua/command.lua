@@ -22,6 +22,7 @@ vim.api.nvim_create_user_command("LuaWork", function()
 	vim.notify("enable luahelper")
 end, { desc = "for moke's work", nargs = 0 })
 
+-- 使用快捷键快速退出这些窗口
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = {
 		"help",

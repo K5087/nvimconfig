@@ -16,6 +16,9 @@ check_enable("stylua")
 -- cpp
 check_enable("clangd")
 
+-- cmake
+check_enable("neocmakelsp", "neocmake")
+
 -- markdown
 check_enable("rumdl")
 
@@ -24,3 +27,6 @@ check_enable("biome")
 
 -- query(.scm)
 check_enable("ts_query_ls")
+
+-- python code action
+check_enable("ruff")

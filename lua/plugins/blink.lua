@@ -6,7 +6,14 @@ return {
 	},
 	event = "InsertEnter",
 	opts = {
-		keymap = { preset = "super-tab" },
+		keymap = {
+			preset = "super-tab",
+			["<C-u>"] = { "scroll_signature_up", "fallback" },
+			["<C-d>"] = { "scroll_signature_down", "fallback" },
+
+			-- default in all keymap presets
+			["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+		},
 		appearance = {
 			nerd_font_variant = "mono",
 			use_nvim_cmp_as_default = true,
@@ -18,5 +25,8 @@ return {
 			default = { "lsp", "path", "snippets", "buffer" },
 		},
 		fuzzy = { implementation = "prefer_rust_with_warning" },
+		signature = {
+			enabled = true,
+		},
 	},
 }
