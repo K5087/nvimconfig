@@ -1,18 +1,17 @@
+---@type vim.lsp.Config
 return {
-	settings = {
-		Lua = {
-			runtime = {
-				version = "LuaJIT",
-			},
-			telemetry = {
-				enable = false,
-			},
-			completion = {
-				callSnippet = "Replace",
-			},
-		},
-	},
-	on_attach = function(client, bufnr)
-		client.server_capabilities.documentFormattingProvider = false
-	end,
+    ---@type lspconfig.settings.lua_ls
+    settings = {
+        Lua = {
+            telemetry = {
+                enable = false
+            },
+            completion = {
+                callSnippet = "Replace"
+            }
+        }
+    },
+    on_attach = function (client, bufnr)
+        client.server_capabilities.documentFormattingProvider = false
+    end
 }

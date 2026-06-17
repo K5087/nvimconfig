@@ -1,10 +1,7 @@
+---@type vim.lsp.Config
 return {
-	diagnostics = {
-		globals = { "vim" },
-	},
-
-	workspace = {
-		library = vim.api.nvim_get_runtime_file("", true),
-		checkThirdParty = false,
-	},
+    ---@type lspconfig.settings.lua_ls
+    settings = {
+        Lua = require("lsp.vimdev")
+    }
 }

@@ -40,17 +40,10 @@ opt.ignorecase = true
 opt.smartcase = true
 
 -- 取消匹配高亮
-opt.hlsearch = false
+-- opt.hlsearch = false
 
 -- 替换fold char
-opt.fillchars = {
-	foldopen = " ",
-	foldclose = " ",
-	fold = " ",
-	foldsep = " ",
-	diff = "╱",
-	eob = " ",
-}
+opt.fillchars = { foldopen = " ", foldclose = " ", fold = " ", foldsep = " ", diff = "╱", eob = " " }
 
 -- 将vim设置为24位颜色
 opt.termguicolors = true

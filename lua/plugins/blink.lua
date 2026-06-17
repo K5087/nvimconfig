@@ -27,6 +27,10 @@ return {
 		fuzzy = { implementation = "prefer_rust_with_warning" },
 		signature = {
 			enabled = true,
+			trigger = {
+				show_on_insert = true,
+				show_on_keyword = true,
+			},
 		},
 	},
 }

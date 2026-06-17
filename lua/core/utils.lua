@@ -19,15 +19,18 @@ local utils = {
 
 	is_cmake_project = false,
 	is_window_suit = vim.fn.winwidth(0) > 50,
+
+	---@type function?
+	project_set_cancel = nil,
 }
 
 function utils:check_cmake_project()
-	local cmake_file = vim.fn.findfile("CMakeLists.txt", ".;")
-	utils.is_cmake_project = cmake_file ~= ""
-	if not utils.is_cmake_project then
-		if utils.project_set_cancel then
-			utils.project_set_cancel()
-			utils.project_set_cancel = nil
+	local cmake_file = vim.fn.findfile("CMakeLists.txt", ".;") --[[@as string]]
+	self.is_cmake_project = cmake_file ~= ""
+	if not self.is_cmake_project then
+		if self.project_set_cancel then
+			self.project_set_cancel()
+			self.project_set_cancel = nil
 		end
 		return
 	end
