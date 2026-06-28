@@ -22,11 +22,11 @@ opt.expandtab = true
 opt.tabstop = 4
 opt.shiftwidth = 0
 
--- 将"寄存器与+寄存器绑定
-opt.clipboard = vim.env.SSH_TTY and "" or "unnamed,unnamedplus"
-
 -- 文件被外部程序修改后自动重新加载
 opt.autoread = true
+
+-- 新建文件使用lf作为换行符号
+opt.fileformats = { "unix", "dos" }
 
 -- 禁止创建交换文件
 opt.swapfile = false

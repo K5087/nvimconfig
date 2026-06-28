@@ -22,9 +22,12 @@ return {
 			documentation = { auto_show = false },
 		},
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer" },
+			default = { "lsp", "snippets", "path", "buffer" },
 		},
-		fuzzy = { implementation = "prefer_rust_with_warning" },
+		fuzzy = { implementation = "prefer_rust_with_warning", sorts = {
+			"score",
+			"sort_text",
+		} },
 		signature = {
 			enabled = true,
 			trigger = {

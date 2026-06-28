@@ -4,6 +4,7 @@ return {
 	opts = {
 		cmake_command = "cmake", -- this is used to specify cmake command path
 		ctest_command = "ctest", -- this is used to specify ctest command path
+		ctest_show_labels = false, -- also show labels in the test picker
 		cmake_use_preset = true,
 		cmake_regenerate_on_save = true, -- auto generate when save CMakeLists.txt
 		cmake_generate_options = { "-G", "Ninja", "-DCMAKE_EXPORT_COMPILE_COMMANDS=1" }, -- this will be passed when invoke `CMakeGenerate`
@@ -24,7 +25,7 @@ return {
 			-- copy:      this will automatically copy compile commands file to target
 			-- lsp:       this will automatically set compile commands file location using lsp
 			-- none:      this will make this option ignored
-			target = vim.loop.cwd(), -- path to directory, this is used only if action == "soft_link" or action == "copy"
+			target = vim.loop.cwd, -- path to directory, this is used only if action == "soft_link" or action == "copy"
 		},
 		cmake_kits_path = vim.fn.stdpath("config") .. "/lua/config/cmake-tool-kits.json", -- this is used to specify global cmake kits path, see CMakeKits for detailed usage
 		cmake_variants_message = {
@@ -84,12 +85,12 @@ return {
 					-- Running Tasks
 					start_insert = false, -- If you want to enter terminal with :startinsert upon using :CMakeRun
 					focus = false, -- Focus on terminal when cmake task is launched.
-					do_not_add_newline = true, -- Do not hit enter on the command inserted when using :CMakeRun, allowing a chance to review or modify the command before hitting enter.
+					do_not_add_newline = false, -- Do not hit enter on the command inserted when using :CMakeRun, allowing a chance to review or modify the command before hitting enter.
 				}, -- terminal executor uses the values in cmake_terminal
 			},
 		},
 		cmake_runner = { -- runner to use
-			name = "quickfix", -- name of the runner
+			name = "toggleterm", -- name of the runner
 			opts = {}, -- the options the runner will get, possible values depend on the runner type. See `default_opts` for possible values.
 			default_opts = { -- a list of default and possible values for runners
 				quickfix = {
@@ -101,7 +102,7 @@ return {
 				},
 				toggleterm = {
 					direction = "float", -- 'vertical' | 'horizontal' | 'tab' | 'float'
-					close_on_exit = true, -- whether close the terminal when exit
+					close_on_exit = false, -- whether close the terminal when exit
 					auto_scroll = true, -- whether auto scroll to the bottom
 					singleton = true, -- single instance, autocloses the opened one, if present
 				},
@@ -132,12 +133,13 @@ return {
 					start_insert = false, -- If you want to enter terminal with :startinsert upon using :CMakeRun
 					focus = false, -- Focus on terminal when cmake task is launched.
 					do_not_add_newline = false, -- Do not hit enter on the command inserted when using :CMakeRun, allowing a chance to review or modify the command before hitting enter.
+					use_shell_alias = false, -- Hide the verbose command wrapper by using a shell alias, showing only the program's output (currently not supported on Windows)
 				},
 			},
 		},
 		cmake_notifications = {
-			runner = { enabled = false },
-			executor = { enabled = false },
+			runner = { enabled = true },
+			executor = { enabled = true },
 			spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }, -- icons used for progress display
 			refresh_rate_ms = 100, -- how often to iterate icons
 		},
@@ -147,6 +149,7 @@ return {
 	config = function(_, opts)
 		local utils = require("core.utils")
 		local cmake_tools = require("cmake-tools")
+		cmake_tools.setup(opts)
 
 		local cmake_group = vim.api.nvim_create_augroup("CMakeEvents", { clear = false })
 
