@@ -1,12 +1,26 @@
-vim.api.nvim_create_user_command("VimDev", function()
+vim.api.nvim_create_user_command("VimDev", function(opts)
+	local arg = opts.fargs[1]
+	if arg and arg == "all" then
+		require("lsp.vimdev").all = true
+	end
 	local vim_emmylua_ls = require("lsp.vim_emmylua_ls")
 	vim.lsp.config("emmylua_ls", vim_emmylua_ls)
 	if #vim.lsp.get_clients({ name = "emmylua_ls" }) > 0 then
 		vim.cmd("lsp stop emmylua_ls")
 	end
+
 	vim.lsp.enable("emmylua_ls")
 	vim.notify("enable vim lua dev environment")
-end, { desc = "enable nvim lua plugin lspserver", nargs = 0 })
+end, {
+	desc = "enable nvim lua plugin lspserver",
+	nargs = "?",
+	complete = function(arglead, cmdline, cursorpos)
+		local items = { "all" }
+		return vim.tbl_filter(function(item)
+			return vim.startswith(item, arglead)
+		end, items)
+	end,
+})
 
 vim.api.nvim_create_user_command("LuaWork", function()
 	vim.lsp.enable("emmylua_ls", false)

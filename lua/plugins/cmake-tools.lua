@@ -1,5 +1,6 @@
 return {
-	"Civitasv/cmake-tools.nvim",
+	-- "Civitasv/cmake-tools.nvim",
+	"K5087/cmake-tools.nvim",
 	event = "VeryLazy",
 	opts = {
 		cmake_command = "cmake", -- this is used to specify cmake command path

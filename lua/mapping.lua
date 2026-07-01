@@ -41,7 +41,3 @@ set("v", "<A-k>", ":m '<-2<CR>gv=gv", { silent = true, desc = "Move selection up
 -- 快速跳转行开头和结尾
 set("n", "gl", "$", { desc = "Go to end of line" })
 set("n", "gh", "^", { desc = "Go to start of line" })
-
--- 处理复制粘贴寄存器问题
-set({ "v", "n" }, "<leader>y", '"+y', { desc = "copy to system register" })
-set({ "v", "n" }, "<leader>p", '"+p', { desc = "paste from system register" })
