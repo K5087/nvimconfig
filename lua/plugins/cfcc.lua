@@ -1,6 +1,7 @@
 return {
 	"K5087/cfcc.nvim",
-	event = "VeryLazy",
+	-- event = "VeryLazy",
+	ft = { "c", "cpp" },
 	config = function()
 		local cfcc = require("cfcc")
 		vim.keymap.set({ "v", "n" }, "<leader>gf", function()

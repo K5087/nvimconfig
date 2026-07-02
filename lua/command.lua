@@ -4,6 +4,7 @@ vim.api.nvim_create_user_command("VimDev", function(opts)
 		require("lsp.vimdev").all = true
 	end
 	local vim_emmylua_ls = require("lsp.vim_emmylua_ls")
+	vim_emmylua_ls.settings.emmylua = require("lsp.vimdev"):config()
 	vim.lsp.config("emmylua_ls", vim_emmylua_ls)
 	if #vim.lsp.get_clients({ name = "emmylua_ls" }) > 0 then
 		vim.cmd("lsp stop emmylua_ls")

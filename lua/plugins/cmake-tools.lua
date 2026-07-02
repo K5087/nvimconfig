@@ -2,6 +2,7 @@ return {
 	-- "Civitasv/cmake-tools.nvim",
 	"K5087/cmake-tools.nvim",
 	event = "VeryLazy",
+	-- lazy = true,
 	opts = {
 		cmake_command = "cmake", -- this is used to specify cmake command path
 		ctest_command = "ctest", -- this is used to specify ctest command path
@@ -26,7 +27,7 @@ return {
 			-- copy:      this will automatically copy compile commands file to target
 			-- lsp:       this will automatically set compile commands file location using lsp
 			-- none:      this will make this option ignored
-			target = vim.loop.cwd, -- path to directory, this is used only if action == "soft_link" or action == "copy"
+			target = vim.uv.cwd, -- path to directory, this is used only if action == "soft_link" or action == "copy"
 		},
 		cmake_kits_path = vim.fn.stdpath("config") .. "/lua/config/cmake-tool-kits.json", -- this is used to specify global cmake kits path, see CMakeKits for detailed usage
 		cmake_variants_message = {
@@ -150,7 +151,6 @@ return {
 	config = function(_, opts)
 		local utils = require("core.utils")
 		local cmake_tools = require("cmake-tools")
-		cmake_tools.setup(opts)
 
 		local cmake_group = vim.api.nvim_create_augroup("CMakeEvents", { clear = false })
 
