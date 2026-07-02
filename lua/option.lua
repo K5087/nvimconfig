@@ -22,9 +22,6 @@ opt.expandtab = true
 opt.tabstop = 4
 opt.shiftwidth = 0
 
--- 将"寄存器与+寄存器绑定
-opt.clipboard = "unnamedplus"
-
 -- 文件被外部程序修改后自动重新加载
 opt.autoread = true
 
