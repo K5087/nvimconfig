@@ -4,6 +4,7 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		"nvim-tree/nvim-web-devicons",
 	},
+	event = "BufReadPost",
 	opts = {
 		layout = {
 			max_width = { 40, 0.25 },

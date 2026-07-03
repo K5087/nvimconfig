@@ -4,5 +4,5 @@ return {
 		"nvim-lua/plenary.nvim",
 	},
 	opt = {},
-	event = "VeryLazy",
+	lazy = true,
 }

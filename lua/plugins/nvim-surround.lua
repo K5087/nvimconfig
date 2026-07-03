@@ -1,7 +1,7 @@
 return {
 	"kylechui/nvim-surround",
 	version = "^3.0.0",
-	event = "VeryLazy",
+	event = "InsertEnter",
 	opts = {
 		context_offset = 100,
 		load_autogroups = false,
