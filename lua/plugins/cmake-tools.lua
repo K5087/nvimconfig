@@ -1,8 +1,9 @@
 return {
 	-- "Civitasv/cmake-tools.nvim",
-	"K5087/cmake-tools.nvim",
+	-- "K5087/cmake-tools.nvim",
 	event = "VeryLazy",
 	-- lazy = true,
+	dir = "D:/Dev/cmake-tools.nvim/",
 	opts = {
 		cmake_command = "cmake", -- this is used to specify cmake command path
 		ctest_command = "ctest", -- this is used to specify ctest command path
@@ -35,12 +36,10 @@ return {
 			long = { show = true, max_length = 80 }, -- whether to show long message
 		},
 		cmake_dap_configuration = { -- debug settings for cmake
-			name = "cpp",
-			type = "gdb",
+			name = "Launch",
+			type = "lldb-dap",
 			request = "launch",
 			stopOnEntry = false,
-			runInTerminal = true,
-			console = "integratedTerminal",
 		},
 		cmake_executor = { -- executor to use
 			name = "quickfix", -- name of the executor
@@ -151,6 +150,7 @@ return {
 	config = function(_, opts)
 		local utils = require("core.utils")
 		local cmake_tools = require("cmake-tools")
+		cmake_tools.setup(opts)
 
 		local cmake_group = vim.api.nvim_create_augroup("CMakeEvents", { clear = false })
 

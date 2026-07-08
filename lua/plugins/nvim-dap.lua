@@ -8,62 +8,44 @@ return {
 		local dap = require("dap")
 		local utils = require("core.utils")
 
-		dap.adapters.gdb = {
+		--llvm-dap config refer to https://lldb.llvm.org/use/lldbdap.html
+		--	adapter config
+		dap.adapters["lldb-dap"] = {
+			name = "lldb-dap",
 			type = "executable",
-			command = "gdb",
-			args = { "--interpreter=dap", "--eval-command", "set print pretty on" },
+			command = "lldb-dap",
 			options = {
 				detached = not utils.is_windows,
 			},
-			runInTerminal = true,
-			externalConsole = true,
-			console = "integratedTerminal",
 		}
-		local gdb = {
+
+		-- launch config
+		local lldb = {
 			{
 				name = "Launch",
-				type = "gdb",
+				type = "lldb-dap",
 				request = "launch",
 				program = function()
-					return vim.fn.input("path to executable: ", vim.fn.getcwd() .. "/", "file")
+					return vim.fn.input("path to executable: ", vim.uv.cwd() .. utils.path_separator, "file")
 				end,
+				cwd = function()
+					return vim.uv.cwd()
+				end,
+				stopOnEntry = false,
 				args = {},
-				cwd = "${workspaceFolder}",
-				stopAtBeginningOfMainSubprogram = false,
-			},
-			{
-				name = "Select and attach to process",
-				type = "gdb",
-				request = "attach",
-				program = function()
-					return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-				end,
-				pid = function()
-					local name = vim.fn.input("Executable name (filter): ")
-					return require("dap.utils").pick_process({ filter = name })
-				end,
-				cwd = "${workspaceFolder}",
-			},
-			{
-				name = "Attach to gdbserver :1234",
-				type = "gdb",
-				request = "attach",
-				target = "localhost:1234",
-				program = function()
-					return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-				end,
-				cwd = "${workspaceFolder}",
+				-- integratedTerminal or externalTerminal are not available in windows llvm-dap
+				-- see https://github.com/llvm/llvm-project/pull/198573
+				console = "internalConsole",
 			},
 		}
 
-		dap.configurations.cpp = gdb
+		dap.configurations.cpp = lldb
 		dap.configurations.c = dap.configurations.cpp
 
 		-- 调试快捷键
 		vim.keymap.set({ "v", "n", "i", "t" }, "<F10>", "<cmd>DapToggleBreakpoint<CR>", { silent = true })
 		vim.keymap.set({ "v", "n" }, "<F5>", function()
 			local cmake = require("cmake-tools")
-			local dap = require("dap")
 			if dap.session() ~= nil then
 				dap.continue()
 			else
@@ -73,8 +55,9 @@ return {
 					if b_target then
 						cmake.debug({ target = b_target })
 					end
+				else
+					cmake.debug({ target = l_target })
 				end
-				cmake.debug({})
 			end
 		end, { desc = "debug or continue" })
 
