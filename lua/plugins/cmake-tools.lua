@@ -1,9 +1,8 @@
 return {
 	-- "Civitasv/cmake-tools.nvim",
-	-- "K5087/cmake-tools.nvim",
+	"K5087/cmake-tools.nvim",
 	event = "VeryLazy",
 	-- lazy = true,
-	dir = "D:/Dev/cmake-tools.nvim/",
 	opts = {
 		cmake_command = "cmake", -- this is used to specify cmake command path
 		ctest_command = "ctest", -- this is used to specify ctest command path
@@ -42,7 +41,7 @@ return {
 			stopOnEntry = false,
 		},
 		cmake_executor = { -- executor to use
-			name = "quickfix", -- name of the executor
+			name = "toggleterm", -- name of the executor
 			opts = {}, -- the options the executor will get, possible values depend on the executor type. See `default_opts` for possible values.
 			default_opts = { -- a list of default and possible values for executors
 				quickfix = {
