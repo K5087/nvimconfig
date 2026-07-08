@@ -92,10 +92,10 @@ local cmake_component = {
 							cmake.debug({
 								target = b_target,
 							})
-							return
 						end
+					else
+						cmake.debug({ target = l_target })
 					end
-					cmake.debug({})
 				elseif mouse == "r" then
 					cmake.select_launch_target()
 				end

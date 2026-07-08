@@ -9,16 +9,19 @@ vim.api.nvim_create_autocmd({ "User" }, {
 	callback = function() end,
 })
 
+local uname = vim.uv.os_uname()
 local utils = {
 	version = version,
 
-	is_linux = vim.uv.os_uname().sysname == "Linux",
-	is_mac = vim.uv.os_uname().sysname == "Darwin",
-	is_windows = vim.uv.os_uname().sysname == "Windows_NT",
-	is_wsl = string.find(vim.uv.os_uname().release, "WSL") ~= nil,
+	is_linux = uname.sysname == "Linux",
+	is_mac = uname.sysname == "Darwin",
+	is_windows = uname.sysname == "Windows_NT",
+	is_wsl = string.find(uname.release, "WSL") ~= nil,
 
 	is_cmake_project = false,
 	is_window_suit = vim.fn.winwidth(0) > 50,
+
+	path_separator = uname.sysname == "Windows_NT" and "\\" or "/",
 
 	---@type function?
 	project_set_cancel = nil,
