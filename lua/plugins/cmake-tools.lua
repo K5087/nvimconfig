@@ -1,9 +1,8 @@
 return {
 	-- "Civitasv/cmake-tools.nvim",
-	-- "K5087/cmake-tools.nvim",
+	"K5087/cmake-tools.nvim",
 	event = "VeryLazy",
 	-- lazy = true,
-	dir = "D:/Dev/cmake-tools.nvim/",
 	opts = {
 		cmake_command = "cmake", -- this is used to specify cmake command path
 		ctest_command = "ctest", -- this is used to specify ctest command path
@@ -40,6 +39,8 @@ return {
 			type = "lldb-dap",
 			request = "launch",
 			stopOnEntry = false,
+			runInTerminal = false,
+			console = "internalConsole",
 		},
 		cmake_executor = { -- executor to use
 			name = "toggleterm", -- name of the executor
@@ -151,6 +152,17 @@ return {
 		local utils = require("core.utils")
 		local cmake_tools = require("cmake-tools")
 		cmake_tools.setup(opts)
+		vim.keymap.set({ "v", "n" }, "<F5>", function()
+			local l_target = cmake_tools.get_launch_target()
+			if not l_target then
+				local b_target = cmake_tools.get_build_target()
+				if b_target then
+					cmake_tools.debug({ target = b_target })
+				end
+			else
+				cmake_tools.debug({ target = l_target })
+			end
+		end, { desc = "cmake debug" })
 
 		local cmake_group = vim.api.nvim_create_augroup("CMakeEvents", { clear = false })
 

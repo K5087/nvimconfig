@@ -17,6 +17,7 @@ check_enable("stylua")
 
 -- cpp
 check_enable("clangd")
+-- check_enable("clice")
 
 -- cmake
 check_enable("neocmakelsp", "neocmake")
@@ -35,3 +36,6 @@ check_enable("basedpyright")
 
 -- python code action
 check_enable("ruff")
+
+-- nushell
+check_enable("nu", "nushell")

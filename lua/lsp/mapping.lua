@@ -28,7 +28,7 @@ end, { desc = "jump to prev snippet" })
 vim.keymap.set({ "n", "i", "v" }, "<A-a>", vim.lsp.buf.code_action, { desc = "code action" })
 vim.keymap.set({ "n", "i", "v" }, "<A-D>", vim.lsp.buf.declaration, { desc = "declaration" })
 vim.keymap.set({ "n", "i", "v" }, "<A-d>", vim.lsp.buf.definition, { desc = "definition" })
-vim.keymap.set({ "n", "i", "v" }, "<A-h>l", vim.lsp.buf.document_highlight, { desc = "document_highlight" })
+vim.keymap.set({ "n", "i", "v" }, "<A-h>", vim.lsp.buf.document_highlight, { desc = "document_highlight" })
 -- gO
 vim.keymap.set({ "n", "i", "v" }, "<A-s>d", vim.lsp.buf.document_symbol, { desc = "document_symbol" })
 vim.keymap.set({ "n", "i", "v" }, "<A-=>", vim.lsp.buf.format, { desc = "fortmat" })
@@ -48,13 +48,13 @@ vim.keymap.set({ "n", "i", "v" }, "<A-s>h", vim.lsp.buf.signature_help, { desc =
 -- grt
 vim.keymap.set({ "n", "i", "v" }, "<A-t>", vim.lsp.buf.type_definition, { desc = "type_definition" })
 vim.keymap.set({ "n", "i", "v" }, "<A-u>", vim.lsp.buf.typehierarchy, { desc = "typeHierarchy" })
-vim.keymap.set({ "n", "i", "v" }, "<A-s>w", vim.lsp.buf.workspace_symbol, { desc = "workspace_symbol" })
+vim.keymap.set({ "n", "i", "v" }, "<A-w>s", vim.lsp.buf.workspace_symbol, { desc = "workspace_symbol" })
 
 -- K
 -- vim.keymap.set({ "n", "i", "v" }, "<A-k>", vim.lsp.buf.hover, { desc = "hover" })
 
 -- diagnostic
-vim.keymap.set({ "n", "i", "v" }, "<A-e>", vim.diagnostic.open_float, { desc = "workspace_symbol" })
+vim.keymap.set({ "n", "i", "v" }, "<A-f>", vim.diagnostic.open_float, { desc = "workspace_symbol" })
 
 -- -- 查找符号定义
 -- vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "Goto definition" })
