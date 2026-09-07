@@ -173,7 +173,6 @@ return {
 				if not utils.is_cmake_project then
 					return
 				end
-				opts.cmake_compile_commands_options.target = args.data
 				cmake_tools.setup(opts)
 				local cmake_component = require("config.cmake-component")
 				cmake_component.setup(true)

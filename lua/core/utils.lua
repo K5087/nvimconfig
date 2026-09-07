@@ -28,8 +28,9 @@ local utils = {
 }
 
 function utils.check_cmake_project()
-	local cmake_file = vim.fn.findfile("CMakeLists.txt", ".;") --[[@as string]]
-	utils.is_cmake_project = cmake_file ~= ""
+	local files = vim.fn.findfile("CMakeLists.txt", ".;")
+	utils.is_cmake_project = #files ~= 0
+
 	if not utils.is_cmake_project then
 		if utils.project_set_cancel ~= nil then
 			utils.project_set_cancel()
@@ -37,8 +38,7 @@ function utils.check_cmake_project()
 		end
 		return
 	end
-	local path = vim.fn.fnamemodify(cmake_file, ":p:h")
-	vim.api.nvim_exec_autocmds("User", { pattern = "CMakeProject", data = path })
+	vim.api.nvim_exec_autocmds("User", { pattern = "CMakeProject" })
 end
 
 -- 为Utils创建一个命令组

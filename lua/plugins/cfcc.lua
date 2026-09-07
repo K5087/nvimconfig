@@ -1,5 +1,6 @@
 return {
-	"K5087/cfcc.nvim",
+	-- "K5087/cfcc.nvim",
+	dir = "D:/Dev/cfcc.nvim",
 	-- event = "VeryLazy",
 	ft = { "c", "cpp" },
 	config = function()

@@ -14,10 +14,10 @@ end
 -- lua
 check_enable("emmylua_ls")
 check_enable("stylua")
+-- check_enable("lua-language-server", "lua_ls")
 
 -- cpp
 check_enable("clangd")
--- check_enable("clice")
 
 -- cmake
 check_enable("neocmakelsp", "neocmake")

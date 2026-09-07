@@ -13,6 +13,9 @@ opt.signcolumn = "number"
 -- 高亮当前行
 opt.cursorline = true
 
+--- 将"寄存器与+寄存器绑定
+opt.clipboard = "unnamedplus"
+
 -- 保持当前行距离窗口顶部或底部10行, 当前列距离窗口左边或右边8列
 opt.scrolloff = 10
 opt.sidescrolloff = 8
