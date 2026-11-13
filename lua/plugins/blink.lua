@@ -30,10 +30,10 @@ return {
 		} },
 		signature = {
 			enabled = true,
-			trigger = {
-				show_on_insert = true,
-				show_on_keyword = true,
-			},
+			-- trigger = {
+			-- 	show_on_insert = true,
+			-- 	show_on_keyword = true,
+			-- },
 		},
 	},
 }
