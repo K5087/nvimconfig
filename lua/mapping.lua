@@ -27,9 +27,9 @@ set({ "v", "n", "i" }, "<F4>", "<cmd>wa<CR>", { desc = "save buffer" })
 set({ "v", "n", "i" }, "<F6>", "<cmd>cclose | Trouble qflist toggle<CR>")
 
 -- 头文件/源文件跳转
-set({ "v", "n" }, "<leader><Tab>", "<cmd>LspClangdSwitchSourceHeader<CR>", { silent = true })
-set({ "v", "n" }, "<leader>v<Tab>", "<cmd>vsplit | LspClangdSwitchSourceHeader<CR>", { silent = true })
-set({ "v", "n" }, "<leader>h<Tab>", "<cmd>split | LspClangdSwitchSourceHeader<CR>", { silent = true })
+set({ "v", "n" }, "<leader><Tab>", "<cmd>LspCliceSwitchSourceHeader<CR>", { silent = true })
+set({ "v", "n" }, "<leader>v<Tab>", "<cmd>vsplit | LspCliceSwitchSourceHeader<CR>", { silent = true })
+set({ "v", "n" }, "<leader>h<Tab>", "<cmd>split | LspCliceSwitchSourceHeader<CR>", { silent = true })
 
 -- 移动选中行
 set("n", "<A-j>", "<cmd>m .+1<CR>==", { silent = true, desc = "Move line down" })

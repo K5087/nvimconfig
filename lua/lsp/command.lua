@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		local bufnr = args.buf
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		assert(client, "won't happend")
-		-- enable auto completion
+		-- enable auto completion, already instead by blink plugin
 		-- vim.lsp.completion.enable(true, client.id, bufnr, {
 		-- 	autotrigger = true,
 		-- })
@@ -20,6 +20,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 					vim.lsp.buf.format({ async = false })
 				end,
 			})
+		end
+
+		if client.name == "clice" then
+			local clice = require("lsp.vim_clice")
+			clice:set_color()
 		end
 	end,
 })

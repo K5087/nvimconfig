@@ -19,7 +19,8 @@ check_enable("stylua")
 -- check_enable("lua-language-server", "lua_ls")
 
 -- cpp
-check_enable("clangd")
+-- check_enable("clangd")
+check_enable("clice")
 
 -- cmake
 check_enable("neocmakelsp", "neocmake")
@@ -43,3 +44,7 @@ check_enable("ruff")
 if utils.is_windows then
 	check_enable("nu", "nushell")
 end
+
+-- godot
+
+vim.lsp.enable("gdscript")
